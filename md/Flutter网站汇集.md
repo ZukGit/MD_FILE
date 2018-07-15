@@ -72,8 +72,11 @@
 
 
 **Flutter整体框架图**
+<br/>
 <img src="http://host805073097.s507.pppf.com.cn/wp-content/image/about_flutter/1.jpg">
----
+<br/>
+<br/>
+<br/>
 <img src="http://host805073097.s507.pppf.com.cn/wp-content/image/about_flutter/2.jpg">
 1.选择库
 2.选择Class
