@@ -39,7 +39,7 @@ brew list                   //  显示安装软件列表
 ```
 
 ```
-[homebrew 能安装的软件集合]
+[homebrew 能安装的软件集合   4628个]
 a2ps                        a52dec                            aacgain                        aalib                         
 aamath                      aap                               aardvark_shell_utils           abcde                         
 abcl                        abcm2ps                           abcmidi                        abduco                        
