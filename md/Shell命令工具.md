@@ -26,7 +26,7 @@ adb shell tcpdump -i any -p -s 0 -w /data/op_pcap.pcap
 
 
 ```
-【homebrew 能安装的软件集合】
+[homebrew 能安装的软件集合]
 abcde                         abcl                           abcm2ps                          abcmidi                        
 ace                           ack                            acpica                           activemq                       
 adr-tools                     advancemame                    agda                             agedu                          
