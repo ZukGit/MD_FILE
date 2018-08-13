@@ -27,6 +27,58 @@ brew install  imagemagick
 命令： asciiview ./1.png
 ```
 <img src="./image/shell_command_tool/1.png" height="50%" width="50%"><img src="./image/shell_command_tool/1_arscii.png" height="50%" width="50%">
+
+## ACK命令
+```
+简介：ack诞生的目的就是要取代grep，从作者开发的初衷以及它官网的名字，另外它还有一个“可以替代99%grep的工作”这个口号。ACK专门为
+程序员进行搜索进行了优化
+
+特点：
+1.速度非常快,因为它只搜索有意义的东西。
+2.更友好的搜索，忽略那些不是你源码的东西。
+3.为源代码搜索而设计，用更少的击键完成任务。
+4.非常轻便，移植性好。
+5.免费且开源
+
+与grep对比：
+grep常用操作
+grep -r 'hello_world' # 简单用法
+grep '^hello_world' . # 简单正则
+ls -l | grep .py      # 管道用法
+
+grep的一些参数：
+-c(统记 搜索结果)/ -i(忽略大小)/ -h(不显示名称)/  -C(显示行数)
+-l(只显文件名)/ -n(加行号)/ -v(显示不匹配)  / -s (no-messages不显示错误信息)
+-r (表示在当前目录和子目录，循环搜索)
+
+
+ack功能划分:
+1. Searching代码搜索
+2. Search output搜索结果处理
+3. File presentation文件展示
+4. File finding文件查找
+5. File inclusion/exclusion文件过滤
+
+
+ack 参数用法：默认是递归
+-i         忽略大小写
+-v        显示不匹配行
+-w        强制匹配整个单词
+-l         打印匹配的文件名
+-L        打印不匹配的文件名
+-m       在每个文件中最多匹配多少行就停止搜索
+-c        显示匹配的总行数
+
+ack -i -w eat   // 在当前目录递归搜索单词”eat”,不匹配类似于”feature”或”eating”的字符串
+ack -i  --php  protected   //忽略大小写搜索php文件中包含protected的文件
+ack -f hello.py     // 查找多有匹配的文件   hello.py
+
+ack --python hello     //查找所有包含hello字符串的python文件 
+
+ack --java zukgit     // 检查所有包含 zukgit字符串的文件
+
+```
+
 ## ADB 命令
 
 ```
@@ -36,6 +88,70 @@ adb shell setprop vidc.debug.level 7
 
 adb shell tcpdump -i any -p -s 0 -w /data/op_pcap.pcap
 ```
+
+
+## Afl-fuzz库命令
+```
+简介： https://blog.csdn.net/youkawa/article/details/45696317
+AFL(American Fuzzy Lop)是由Google安全工程师Micha  Zalewski开发的一款开源fuzzing测试工具，可以高效地对【二进制程序】进行【fuzzing模糊测试】，挖掘可能存在的内存安全漏洞，如栈溢出、堆溢出、UAF、double free等。由于需要在相关代码处插桩，因此AFL主要用于对开源软件进行测试。当然配合QEMU等工具，也可对闭源二进制代码进行fuzzing，但执行效率会受到影响。
+
+AFL主要由3部分组成：
+编译器wrapper，该部分用于编译目标代码，如afl-gcc, afl-clang等
+fuzzer: afl-fuzz，即为用于fuzzing的主要工具
+其他工具：如afl-cmin, afl-tmin等
+
+
+Fuzzing技术被证明是当前鉴别软件安全问题方面最强大测试技术。
+
+```
+
+
+
+## aircrack-ng 破解WIFI的WEP/WPA/WPA2密码的主流工具
+```
+Aircrack-ng是一套套件包含的工具可用于捕获数据包、握手验证。可用来进行暴力破解和字典攻击。
+Aircrack-ng 攻击 主要是拿到握手包，用字典破解握手包
+
+作用领域：
+监控：数据包捕获并将数据导出到文本文件以供第三方工具进一步处理。
+攻击：通过数据包注入重播攻击，解除身份验证，假接入点和其他攻击点。
+测试：检查WiFi卡和驱动程序功能（捕获和注入）。
+破解：WEP和WPA PSK（WPA 1和2） 
+
+
+使用：
+// 1.使用该命令 查看周围wifi网络的 SSID热点名 BSSID热点唯一Mac标识            
+//   RSSI信号强度  CHANNEL信道  HT CC SECURITY加密方式 (auth/unicast/group)
+【配置airport 链接到 bin 使得 shell中能找到】
+sudo ln -s /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport /usr/sbin/airport
+
+airport -s     
+
+
+//2. en0表示当前的网卡名 ifconfig命令查看 6表示当前探测的网络工作的信道channel
+// 该命令开始执行抓取在该信道传输的WIFI帧   Ctrl + C 结束该过程
+//会生成 /tmp/airportsniffXXX.cap(或者/private/tmp/airportsniffXXX.cap) 捕获帧文件
+airport en0 sniff 6 
+
+
+// 3.复制该文件到 zidian.txt(里面包含穷举的密码)统一文件夹下 改名为 1.cap 并在shell界面cd到该目录  执行查找握手帧的过程
+aircrack-ng -w zidian.txt 1.cap
+
+//4.在出现的帧编号中 查找一个描述为 WPA( 1 handshake ) 的帧 , 并输入该帧对应的 帧编号开始解析
+//等待字典.txt中所有的Item进行破解，如果字典.txt存在密码就会破解成功，若不存在则需要更换破解字典.txt文件 
+```
+**检测网络信息**
+<img src="./image/shell_command_tool/airport.png">
+
+**选择捕获帧中显示（1 handshake）的帧**
+<img src="./image/shell_command_tool/wpa1.png">
+<img src="./image/shell_command_tool/select_num.png">
+
+**字典中未包含枚举密码解析失败**
+<img src="./image/shell_command_tool/not_find.png">
+
+**字典中包含密码解析成功**
+<img src="./image/shell_command_tool/success">
 
 # B
 
@@ -1447,11 +1563,40 @@ git config --list
 
 # H
 # I
+## iftop (Mac/Linux 命令)
+```
+iftop是一款实时流量监控工具,监控TCP/IP连接等,能查看得到连接到的IP地址信息
+ 使用方法： iftop -i en0 -n -P
+ 
+中间的<= =>这两个左右箭头，表示的是流量的方向。
+TX：发送流量
+RX：接收流量
+TOTAL：总流量
+cum：运行iftop到目前时间的总流量
+peak：流量峰值
+rates：分别表示过去 2s 10s 40s 的平均流量
+（直接按 q 可退出界面）
+ (直接按 n 可跳到设置界面)
+```
+<img src="./image/shell_command_tool/if.png">
+<img src="./image/shell_command_tool/if1.png">
+
+
 # J
 # K
 # L
 # M
 # N
+
+## ncdu命令 （Linux Mac）
+```
+ncdu 命令可以用来查看和分析 Linux/Mac 中各目录对磁盘空间占用情况的工具
+
+使用方法：   ncdu   【显示当前shell路径内文件 文件夹的大小】按键N-----以name进行排序显示
+按键S-----以size大小进行排序显示
+```
+<img src="./image/shell_command_tool/3.png">
+
 # O
 # P
 
@@ -1501,3 +1646,17 @@ yum 是linux环境安装软件包的一种方式   Shell前端软件包管理器
 并且一次安装所有依赖的软件包，无须繁琐地一次次下载、安装。
 ```
 # Z
+
+## zsh shell终端 （Mac\Linux）
+```
+zsh是shell的一个版本,它的功能是所有的shell版本中最为强大的一个
+
+安装命令(Mac): brew install zsh
+
+快捷键： 
+Ctrl + D       // 拆分窗口
+Ctrl +Shift +D    // 还原拆分窗口
+xxx + Tab  //   可显示可能的命令
+窗口 》 将窗口存储为组   【该功能可实现打开指定路径的shell】
+
+```
