@@ -153,6 +153,14 @@ aircrack-ng -w zidian.txt 1.cap
 **字典中包含密码解析成功**
 <img src="./image/shell_command_tool/success">
 
+
+## antigen 工具
+
+## antiword 工具
+
+## apktool 工具
+
+## apng2gif 工具
 # B
 
 ## brew | homebrew  (Mac-Shell专用)
