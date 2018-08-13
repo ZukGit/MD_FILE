@@ -34,8 +34,215 @@ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 brew search  xxxx          //  xxxx 表示你想要搜的软件包  brew search  abcde 
 
 brew install xxxx软件包        //安装 软件包   例如： brew install wget
+brew uninstall xxxx软件包       //  卸载软件包  
 
 brew list                   //  显示安装软件列表
+brew ls                   //  显示安装软件列表
+brew desc  xxxx包名    // 显示安装包的描述作用   brew desc  git
+
+brew  deps   xxxx包名      【显示一个安装包的依赖关系】  【例如: brew  deps  wget 】
+
+
+brew  config        // 显示 homebrew的配置
+brew  home         // 进入 homebrew官网
+
+```
+
+
+```
+[brew 命令简介集合]
+    
+brew --cache     【/Users/aaa/Library/Caches/Homebrew】-- brew cache
+
+brew --cellar    【/usr/local/Cellar】 -- brew cellar
+
+brew --env         
+【HOMEBREW_CC: clang
+HOMEBREW_CXX: clang++
+MAKEFLAGS: -j8
+CMAKE_PREFIX_PATH: /usr/local
+CMAKE_INCLUDE_PATH: /usr/include/libxml2:/System/Library/Frameworks/OpenGL.framework/Versions/Current/Headers
+CMAKE_LIBRARY_PATH: /System/Library/Frameworks/OpenGL.framework/Versions/Current/Libraries
+PKG_CONFIG_LIBDIR: /usr/lib/pkgconfig:/usr/local/Homebrew/Library/Homebrew/os/mac/pkgconfig/10.12
+ACLOCAL_PATH: /usr/local/share/aclocal
+PATH: /usr/local/Homebrew/Library/Homebrew/shims/mac/super:/usr/bin:/bin:/usr/sbin:/sbin】  
+-- brew environment
+
+
+brew --prefix      【/usr/local】-- where brew lives on this system
+
+brew --repository   【/usr/local/Homebrew】  -- brew repository
+
+brew --version     
+【Homebrew 1.6.17
+Homebrew/homebrew-core (git revision ddb17a; last commit 2018-08-12)】
+ -- version information
+ 
+ 
+brew audit         -- check formulae for Homebrew coding style
+brew cat git  【显示安装包的详细信息】    -- display formula file for a formula
+brew cleanup   【卸载不使用的旧的包】 -- uninstall unused and old versions of packages
+brew commands     【显示多有的brew 内部可执行命令】 -- show a list of commands
+
+
+brew  config       【显示 brew的配置 以及一些系统配置】
+【HOMEBREW_VERSION: 1.6.17
+ORIGIN: https://github.com/Homebrew/brew.git
+HEAD: 526bece65feca74bf9cdc7f88b37e9a58548b09a
+Last commit: 4 weeks ago
+Core tap ORIGIN: https://github.com/Homebrew/homebrew-core
+Core tap HEAD: ddb17a02ea1147ad63c3cac586fc492d7d0c30bb
+Core tap last commit: 22 hours ago
+HOMEBREW_PREFIX: /usr/local
+HOMEBREW_DEV_CMD_RUN: 1
+CPU: octa-core 64-bit ivybridge
+Homebrew Ruby: 2.3.7 => /usr/local/Homebrew/Library/Homebrew/vendor/portable-ruby/2.3.7/bin/ruby
+Clang: 9.0 build 900
+Git: 2.17.0 => /usr/local/bin/git
+Curl: 7.54.0 => /usr/bin/curl
+Java: 1.8.0_141
+macOS: 10.12.6-x86_64
+CLT: 9.2.0.0.1.1510905681
+Xcode: 9.2
+XQuartz: N/A】 -- show homebrew and system configuration
+
+
+brew  create       【创建一个命令方案?  不会用到的~】 -- create a new formula
+
+
+brew  deps   xxxx包名      【显示一个安装包的依赖关系】  
+【例如: brew  deps  wget
+gettext
+libidn2
+libunistring
+openssl 】
+ -- list dependencies of formulae
+ 
+ 
+ 
+brew desc  xxxx包名    
+【例如  brew desc  wget   wget: Internet file retriever】
+【例如 brew desc  git   git: Distributed revision control system 】
+-- display a description of a formula
+         
+
+
+brew doctor    【检查安装包】    -- audits your installation for common issues
+brew  edit          【 编辑安装包】-- edit a formula
+brew fetch xxxx包名  【下载安装包到cache目录  不安装】        -- download formula resources to the cache
+
+brew formula     
+【显示安装包的安装路径】
+【brew formula  git
+/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula/git.rb】
+  -- the path for a formula
+  
+  
+brew  gist-logs  xxxx安装包   【brew  gist-logs git 显示安装的Log信息】    -- generate a gist of the full build logs
+
+brew home        【在浏览器打开homebrew的主页】  -- visit the homepage of a formula or the brew project
+
+brew info  xxxx安装包   
+【 查看安装包的消息信息 包括 desc描述 】        -- information about a formula
+
+brew  install  xxxx安装包       【安装包 到本地系统  如：brew info  git         brew info  wget】
+-- install a formula
+
+
+brew leaves      
+【显示已安装包中不依赖其他安装包的软件】 
+【例如：    brew leaves 
+aircrack-ng       automake     cocoapods
+git        ideviceinstaller     ios-deploy
+iperf      libtool     pkg-config    wget】
+ -- show installed formulae that are not dependencies of anothe
+ 
+ 
+brew  link  xxxx安装包  【测试安装包连通性】      -- link a formula
+
+
+
+brew list      同  brew  ls   【查看已安装软件包】
+【  例如： brew list
+aircrack-ng		iperf			libxml2
+autoconf		libidn2			libzip
+automake		libimobiledevice	openssl
+cocoapods		libplist		pkg-config
+gettext			libtasn1		readline
+git			libtool			sqlite
+ideviceinstaller	libunistring		usbmuxd
+ios-deploy		libusb			wget】
+ -- list files in a formula or not-installed formulae
+
+
+
+brew  log        【查看homebrew 这个工具库的git提交记录】  -- git commit log for a formula
+
+
+brew migrate     【修改一个安装包的名称?】  -- migrate renamed formula to new name
+
+brew missing     【检查所有已安装 但失去依赖关系的包】     -- check all installed formuale for missing dependencies.
+
+
+brew outdated  【显示所有已安装包的服务器最新版本】    
+【brew outdated ：
+aircrack-ng (1.1_2) < 1.3
+automake (1.15.1) < 1.16.1
+cocoapods (1.3.1) < 1.5.3
+git (2.17.0) < 2.18.0
+ideviceinstaller (1.1.0_3) < 1.1.0_4
+libtasn1 (4.12) < 4.13
+libusb (1.0.21) < 1.0.22
+libxml2 (2.9.4_4) < 2.9.7
+libzip (1.2.0) < 1.5.1
+readline (7.0.3_1) < 7.0.5
+sqlite (3.19.3) < 3.24.0 】
+-- list formulae for which a newer version is available
+
+
+
+brew pin  xxxx安装包           【暂停安装包 安装过程  例如：brew pin  git】-- pin specified formulae
+brew postinstall  xxxx安装包  【安装向导?】 -- perform post_install for a given formula
+brew prune         【移除 那些不起作用的 链接Link 在安装 homebrew的目录】 -- remove dead links
+
+brew reinstall  xxxx安装包   【更新已经安装的安装包】-- install a formula anew; re-using its current options
+
+brew remove  xxxx安装包      【移除一个安装包】      -- remove a formula
+
+brew  search  xxxx安装包    【搜索安装包】      -- search for a formula (/regex/ or string)
+
+brew  switch  xxxx安装包 【在已安装的相同软件不同版本间切换】      -- switch between different versions of a formula
+
+brew tap         【可以为brew的软件的 跟踪,更新,安装添加更多的的tap formulae】 
+https://segmentfault.com/a/1190000012826983    【homebrew的tap功能详解】
+ -- tap a new formula repository from GitHub, or list existing 
+ 
+ 
+brew tap-info      【显示 tab 信息】-- information about a tap
+【 brew tap-info 
+2 taps, 0 pinned, 0 private, 4611 formulae, 3 commands, 9,165 files, 181.4MB 】 
+
+
+brew  uninstall  xxxx安装包  【 卸载安装包 】  -- uninstall a formula   
+
+
+brew  update     【下载所有的新的安装包】   -- fetch latest version of Homebrew and all formulae
+
+brew upgrade   【升级安装所有的本地安装包对应的服务器新版本】     -- upgrade outdated formulae
+
+brew  uses  xxxx安装包    【查看所有依赖指定包的其他安装包】     
+【brew  uses wget
+dasht               jigdo               luaver              wgetpaste】
+-- show formulae which depend on a formula
+
+ brew  analytics   【统计？】
+【
+Analytics is enabled.
+UUID: 167DFEA1-3D1B-48B3-8025-1380F6630017
+】
+
+ brew  irb   【进入 brew自己的shell】
+
 ```
 
 ```
