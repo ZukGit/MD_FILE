@@ -10,6 +10,23 @@ alias cdgit='cd  /Users/aaa/Desktop/code_place/zzj_git/'
 
 ```
 
+## aalib库-aview库
+
+```
+详细说明： https://blog.csdn.net/exbob/article/details/7321903
+aalib简介：aalib这是一个功能库  目的是将计算机上的一切都用ASCII字符来表现，包括图形和视频
+
+aview简介：aview程序可以将pbm、pgm或pnm图片用ASCII字符显示。但是不支持JPEG图片，所以它提供了一个shell脚本asciiview，先调用convert将JPEG图片转换为pgm图片，然后再用aview显示。
+convert 功能依赖于包 imagemagick  所以还要下载该包
+安装方法( Mac )： 
+brew install  aalib
+brew install  aview
+brew install  imagemagick
+
+
+命令： asciiview ./1.png
+```
+<img src="./image/shell_command_tool/1.png" height="50%" width="50%"><img src="./image/shell_command_tool/1_arscii.png" height="50%" width="50%">
 ## ADB 命令
 
 ```
