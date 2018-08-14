@@ -391,6 +391,366 @@ apktool d ./yourApkFile.apk    // 解析当前apk的xml文件 和 图片 （注�
 <img src="./image/shell_command_tool/apktool_result.png">
 
 ## apng2gif 工具
+```
+APNG又叫动态PNG，第1帧为标准PNG图像，剩余的动画和帧速等数据放在PNG扩展数据块里，因此只支持原版PNG的软件会正确显示第1帧
+APNG解决了 GIF的锯齿问题，  gif锯齿问题网址： http://www.ui.cn/detail/34100.html
+APNG平均会比GIF的体积大一点点（3%左右）
+
+APNG博客
+https://www.zhangxinxu.com/wordpress/2014/09/apng-history-character-maker-editor/
+
+APNG制作：
+http://littlesvr.ca/apng/
+```
+
+```
+apng2gif 安装命令：    brew install apng2gif
+
+使用命令：
+
+
+```
+
+## apngasm
+```
+apngasm 是一个使多张png照片生成一张 apng照片(无锯齿gif动画)的工具
+使用该命令行生成 APNG 图片
+实例地址：  https://www.cnblogs.com/xiaoniuzai/p/8127101.html
+安装命令：    brew install apngasm
+
+```
+
+```
+【apngasm 用法】
+### 使用 dowload-1,2,3,4,5,6~ 序列的图片生成 output.png 的 apng图片，循环次数为1
+apngasm ./images2/output.png ./images2/download-*.png -l1
+
+
+### 使用 dowload-1,2,3,4,5,6~ 序列的图片生成 output.png 的 apng图片，循环次数为1，压缩算法为zlib
+apngasm ./images2/output.png ./images2/download-*.png -l1 -z0
+
+```
+
+
+```
+apngasm帮助手册：
+APNG Assembler 2.91
+
+Usage   : apngasm output.png frame001.png [options]
+          apngasm output.png frame*.png   [options]
+
+Options :
+1 10    : frame delay is 1/10 sec. (default) 帧间隔
+-l2     : 2 loops (default is 0, forever) 循环次数
+-f      : skip the first frame 忽略第一帧
+-hs##   : input is horizontal strip of ## frames (example: -hs12) 
+-vs##   : input is vertical strip of ## frames   (example: -vs12)
+-kp     : keep palette
+-kc     : keep color type
+-z0     : zlib compression zlib压缩
+-z1     : 7zip compression (default) 7zip压缩
+-z2     : Zopfli compression zopli 压缩
+-i##    : number of iterations (default -i15)
+
+
+```
+
+
+
+## apparix
+```
+apparix简介： apparix是一个在Shell中为路径起别名bookmark书签的工具,  通过起别名我们可以方便的切换cd 到该别名工作目录
+
+安装方法：   brew install apparix
+```
+
+
+```
+【apparix 初始化配置1 】
+apparix需要初始化环境才能使用，需要手动创建一个 ~/.bourne-apparish   这样一个可执行文件
+在该文件内部填充 https://github.com/micans/bash-utils/blob/master/.bourne-apparish 的内容  ，
+ 之后在 ~/.zshrc 中增加   source ~/.bourne-apparish   来初始化 apparix 下 shell 下的环境
+#############
+ vim  ~/.zshrc
+ xxxxx
+ source ~/.bourne-apparish 
+ xxxxx
+ 
+#########
+```
+ 
+``` shell
+【apparix 初始化配置2 】
+vim  ~/.bourne-apparish       // 【  https://github.com/micans/bash-utils/blob/master/.bourne-apparish   内容  】
+###################
+
+
+APPARIXRC=$HOME/.apparixrc
+APPARIXEXPAND=$HOME/.apparixexpand
+APPARIXLOG=$HOME/.apparixlog
+
+
+function apparix-init {
+   already=""
+   if [[ -e $APPARIXRC && -e $APPARIXEXPAND ]]; then
+      already=" already"
+   fi
+   >> $APPARIXRC
+   >> $APPARIXEXPAND
+   echo "Apparish is up and running$already"
+}
+
+function apparish() {
+   if [[ 0 == $# ]]; then
+      cat $APPARIXRC $APPARIXEXPAND | tr ', ' '\t_' | column -t
+      return
+   fi
+   local mark=$1
+   local list=$(grep -F ",$mark," $APPARIXRC $APPARIXEXPAND)
+   if [[ -z $list ]]; then
+      echo "Mark not found"
+      return
+   fi
+   local target=$((tail -n 1 | cut -f 3 -d ',') <<< "$list")
+   if [[ 2 == $# ]]; then
+      echo $target/$2
+   else
+      echo $target
+   fi
+}
+
+function apparix-list () {
+   if [[ 0 == $# ]]; then
+      echo Need mark
+      return
+   fi
+   local mark=$1
+   grep -F ",$mark," $APPARIXRC $APPARIXEXPAND | cut -f 3 -d ','
+}
+
+function bm {
+   if [[ 0 == $# ]]; then
+      echo Need mark
+      return
+   fi
+   local mark=$1
+   local list=$(apparix-list $mark)
+   echo "j,$mark,$PWD" | tee -a $APPARIXLOG >> $APPARIXRC
+   if [[ ! -z $list ]]; then
+      echo -e "Bookmark $mark exists:\n$list" 
+      echo "$PWD (added)"
+   fi
+}
+
+function to () {
+  # local IFS=$'\n'
+  if [[ 2 == $# ]]; then
+    loc=$(apparish "$1" "$2")
+  elif [[ 1 == $# ]]; then
+    if [[ "$1" == '-' ]]; then
+      loc="-"
+    else
+      loc=$(apparish "$1")
+    fi
+  else
+    loc=$HOME
+  fi
+  if [[ $? == 0 ]]; then
+    cd "$loc"
+  fi
+}
+
+function portal {
+   echo "e,$PWD" >> $APPARIXRC
+   portal-expand
+}
+
+function portal-expand {
+   local parentdir subdir
+   > $APPARIXEXPAND
+   grep '^e,' $APPARIXRC | cut -f 2 -d , | while read parentdir; do
+      cd $parentdir
+      find . -maxdepth 1 -type d | cut -b 3- | tail -n +2 | while read subdir; do
+         echo "j,$subdir,$parentdir/$subdir" >> $APPARIXEXPAND
+      done
+   done
+}
+
+function whence() {
+   if [[ 0 == $# ]]; then
+      echo Need mark
+      return
+   fi
+   local mark=$1
+   select target in $(apparix-list $mark); do cd $target; break; done
+}
+
+function toot () {
+   if [[ 3 == $# ]]; then
+      file="$(apparish "$1" "$2")/$3"
+   elif [[ 2 == $# ]]; then
+      file="$(apparish "$1")/$2"
+   else
+      echo "toot tag dir file OR toot tag file"
+      return
+   fi
+   if [[ $? == 0 ]]; then
+      $EDITOR $file
+   fi
+}
+
+function todo () {
+   toot $@ TODO
+}
+
+   # apparix listing of directories of mark
+function ald () {
+  if [[ 2 == $# ]]; then
+    loc=$(apparish "$1" "$2")
+  elif [[ 1 == $# ]]; then
+    loc=$(apparish "$1")
+  fi
+  if [[ $? == 0 ]]; then
+    ls -d "$loc"
+  fi
+}
+
+   # apparix ls of mark
+function als () {
+  if [[ 2 == $# ]]; then
+    loc=$(apparish "$1" "$2")
+  elif [[ 1 == $# ]]; then
+    loc=$(apparish "$1")
+  fi
+  if [[ $? == 0 ]]; then
+    ls "$loc"
+  fi
+}
+
+   # apparix edit of file in mark or subdirectory of mark
+function ae () {
+  if [[ 2 == $# ]]; then
+    loc=$(apparish "$1" "$2")
+  elif [[ 1 == $# ]]; then
+    loc=$(apparish "$1")
+  fi
+  if [[ $? == 0 ]]; then
+     $EDITOR "$loc"
+  fi
+}
+
+
+if [[ -n $BASH_VERSION ]]; then
+    # function to complete sensibly on filenames and directories
+    # https://stackoverflow.com/questions/12933362/getting-compgen-to-include-slashes-on-directories-when-looking-for-files
+    function _my_compgen {
+        local cur="$1"
+
+        # Files, excluding directories:
+        comm -3 <(compgen -f -- "$cur" | sort) <(compgen -d -- "$cur" | sort) # | sed -e 's/$/ /'
+        # Directories (add -S / for slash separator):
+        compgen -d -- "$cur"
+    }
+
+    # function completing a file, used by _apparix_comp
+    function _apparix_comp_file {
+      local caller="$1"
+      local cur_file="$2"
+      # local IFS=$'\n'
+      case $caller in
+        # complete on directories. this is easy with compgen.
+        to|als|ald)
+          # Directories (add -S / for slash separator):
+          compgen -d -- "$cur_file"
+          ;;
+        # complete on filenames. this is a little harder to do nicely.
+        a|ae|apparish) # Huffman (remove a|)
+          _my_compgen "$cur_file"
+          ;;
+        *)
+          echo "please register this function in ~/.bash_apparix:_apparix_dirs" 1>&2
+          ;;
+      esac
+    }
+
+    # function to complete an apparix tag followed by a file inside that tag's
+    # directory
+    function _apparix_comp {
+      local tag="${COMP_WORDS[1]}"
+      local IFS=$'\n'
+      COMPREPLY=()
+      if [[ $COMP_CWORD == 1 ]]; then
+        local tags=( $(cut -f2 -d, $HOME/.apparix{rc,expand}) )
+        COMPREPLY=( $(compgen -W "${tags[*]}" -- "$tag") )
+      else
+        local cur_file="${COMP_WORDS[2]}"
+        local app_dir=$(apparish $tag 2>/dev/null)
+        if [[ -d $app_dir ]]; then
+            # run in subshell so cd isn't permanent
+            COMPREPLY=( $(cd $app_dir && _apparix_comp_file $1 $cur_file) )
+        else
+            COMPREPLY=()
+        fi
+      fi
+      if (( ${#COMPREPLY[@]} > 0 )); then
+        # The line below makes all know cases with spaces in directory names work.
+        COMPREPLY=($(printf "%q\n" "${COMPREPLY[@]}"))
+      fi
+      return 0
+    }
+  # register completions
+  complete -o nospace -F _apparix_comp a to als ald ae apparish   # Huffman (remove a)
+elif [[ -n $ZSH_VERSION ]]; then
+    function _apparix_file {
+        # local IFS=$'\n'
+        _arguments '1:mark:_values "\n" $(cut -d, -f2 $HOME/.apparix{rc,expand})' \
+                   '2:file:_path_files -W "$(apparish $words[2] 2>/dev/null)"'
+    }
+
+    function _apparix_directory {
+        # local IFS=$'\n'
+        _arguments '1:mark:_values "\n" $(cut -d, -f2 $HOME/.apparix{rc,expand})' \
+                   '2:file:_path_files -/W "$(apparish $words[2] 2>/dev/null)"'
+    }
+
+    compdef _apparix_file ae apparish a          # Huffman (remove a)
+    compdef _apparix_directory to ald als
+fi
+
+export APPARIXLOG=$HOME/.apparixlog
+
+alias a='apparish'                              # Huffman (remove entire line)
+alias via='vi $HOME/.apparixrc'
+
+
+
+```
+
+
+```
+【使用方法：】
+【1】   apparix      //必须首次执行【执行改命令会创建扩展文件   ~./.apparixexpand  用于保存 bm命令产生的 <标记名,路径> 的 Map对应关系】
+[apparix] created expansion file /Users/aaa/.apparixexpand
+portals
+expansions
+bookmarks
+j home         /Users/aaa
+j MD           /Users/aaa/Desktop/code_place/MD_GIT/MD_FILE
+
+
+【2】 bm   bookmark       // 该命令会在 ~/.apparixlog 生成路径 与 bookmark的对应关系   <bookmark , pdw(path)> 
+
+【3】 to  bookmark   // 该命令直接切换到对应的bookmark对应的path路径  
+
+【4】 vim  ~/.apparixrc     // apparix 好像没有提供对应的删除map关系的函数   需要手动在 ~/.apparixrc 这里删除对应的map 路径关系
+
+```
+
+**apparix的bm 和 to命令**
+<img src="./image/shell_command_tool/apparix.png">
+
+
+
 # B
 
 ## brew | homebrew  (Mac-Shell专用)
