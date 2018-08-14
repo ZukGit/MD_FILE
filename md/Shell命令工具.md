@@ -151,10 +151,150 @@ aircrack-ng -w zidian.txt 1.cap
 <img src="./image/shell_command_tool/not_find.png">
 
 **字典中包含密码解析成功**
-<img src="./image/shell_command_tool/success">
+<img src="./image/shell_command_tool/success.png">
 
 
 ## antigen 工具
+```
+antigen简介:
+Zsh 是一个 Linux 下强大的 shell, 由于大多数 Linux 产品安装，以及默认使用 bash shell, 但是丝毫不影响极客们对 zsh 的热衷, 几乎每一款 Linux 产品都包含有 zsh，通常可以用 apt-get、urpmi 或 yum 等包管理器进行安装。虽然说 Zsh 是开箱即用，但是为了更好用，还是需要一些定制化的配置。之前一直使用 oh-my-zsh , oh-my-zsh 把主题、插件等都是一起管理的，但是很多其他的主题和插件，且都是由不同的作者开发的，这样的话，管理起来就比较麻烦。 antigen 就是针对此问题，应运而生。antigen是zsh的包管理器，让我们以类似apt-get的方式来安装zsh功能，非常方便。
+
+
+安装命令(Mac)： brew install antigen
+
+```
+
+```
+antigen 的命令(用法):
+
+
+antigen  apply       -- 该命令会应用所有之前所做的更改。使得加载的插件生效 Load all bundle completions
+
+antigen bundle  xxxx插件名称|url地址     -- 该命令用于下载和安装插件如果插件已安装那么就加载该插件 Install and load the given plugin
+antigen bundle git
+antigen bundle heroku
+antigen bundle pip
+antigen bundle lein
+antigen bundle command-not-found
+antigen bundle zsh-users/zsh-syntax-highlighting  #语法高亮功能
+antigen bundle zsh-users/zsh-autosuggestions   #代码提示功能
+antigen bundle zsh-users/zsh-completions   #自动补全功能
+
+antigen  cache-gen   -- 把当前加载的插件生成缓存，可以加快之后的加载过程 Generate cache
+antigen  cleanup     -- 清除所有插件多余的版本Clean up the clones of repos which are not used by any bundle
+antigen  help        -- Show this message 帮助手册
+antigen  init  ~/.antigenrc    -- 该命令可以指定一个antigen配置文件  使用该配置文件来初始化 antigen
+
+
+antigen  list        -- 查看当前插件集合List out the currently loaded bundles
+【
+[zukgit的MacPro-/Users/aaa]➜  ~ antigen  list
+robbyrussell/oh-my-zsh ~ lib @ master
+robbyrussell/oh-my-zsh ~ plugins/git @ master
+robbyrussell/oh-my-zsh ~ plugins/heroku @ master
+robbyrussell/oh-my-zsh ~ plugins/pip @ master
+robbyrussell/oh-my-zsh ~ plugins/lein @ master
+robbyrussell/oh-my-zsh ~ plugins/command-not-found @ master
+zsh-users/zsh-syntax-highlighting @ master
+zsh-users/zsh-autosuggestions @ master
+zsh-users/zsh-completions @ master
+robbyrussell/oh-my-zsh ~ themes/Fishy2.zsh-theme @ master
+】
+
+antigen purge xxxx插件  --清理插件多余的版本Remove a cloned bundle from filesystem
+antigen purge   robbyrussell/oh-my-zsh             
+antigen purge   zsh-users/zsh-completions        
+antigen purge   zsh-users/zsh-autosuggestions      
+antigen purge   zsh-users/zsh-syntax-highlighting
+
+
+antigen  reset       -- Clears cache 清理缓存
+
+antigen  restore     -- Restore the bundles state as specified in the snapshot
+antigen  revert      -- 还原？  不懂
+
+antigen selfupdate  -- Update antigen itself 更新antigen自身
+antigen snapshot    -- Create a snapshot of all the active clones
+antigen  theme  awesomepanda      -- Switch the prompt theme
+antigen  theme  xxxxxx     // 切换主题
+antigen  update      --  执行更新插件  Update all bundles
+antigen  use  oh-my-zsh
+antigen  use  prezto   -- Load any (supported) zsh pre-packaged framework
+antigen  version     -- Display Antigen version
+
+```
+
+
+```
+cat ~/.zshrc 【zsh的配置文件如下】  antigen是下.zshrc脚本执行命令的方式实现对zsh的管理 
+-------------------------------------------------------------
+
+
+export ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="robbyrussell"
+
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+source $HOME/.bash_profile
+
+###############客制化#################
+##设置 sh 脚本执行的命令别名
+alias suz="/usr/local/sh_expect_work/suz.sh"
+alias cmt="/usr/local/sh_expect_work/cmt.sh"
+alias cdsh='cd /usr/local/sh_expect_work/'
+alias cdgit='cd  /Users/aaa/Desktop/code_place/zzj_git/'
+alias cls="clear"
+
+## 把root的bin路径加入到 PATH变量中
+export PATH="/usr/local/sbin:$PATH"
+
+
+## 执行antigen 用于初始化 antigen的环境
+source /usr/local/share/antigen/antigen.zsh
+
+## 通过 antigen 加载 oh-my-zsh库
+antigen use oh-my-zsh
+
+## 加载原版oh-my-zsh中的功能
+antigen bundle git
+antigen bundle heroku
+antigen bundle pip
+antigen bundle lein
+antigen bundle command-not-found
+
+
+antigen bundle zsh-users/zsh-syntax-highlighting  #语法高亮功能
+antigen bundle zsh-users/zsh-autosuggestions   #代码提示功能
+antigen bundle zsh-users/zsh-completions   #自动补全功能
+
+##zsh主题地址    https://github.com/robbyrussell/oh-my-zsh/wiki/External-themes
+##zsh主题地址    https://github.com/robbyrussell/oh-my-zsh/wiki/themes
+antigen theme Fishy2   # 加载主题为 Fishy2
+
+antigen apply     # 保存当前设置 并进行生效设置
+
+#修改 shell的行提示符
+PS1="[zukgit的MacPro-\`pwd\`]${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)"
+
+
+```
+
+```
+【个人配置】
+1. 终端 》 偏好设置 》 通用tab 》 使用描述文件新建窗口dropdown 》 选中 Homebrew
+2. 终端 》 偏好设置 》 描述文件tab 》 Homebrew 》字体 18pt    颜色 绿色 green
+```
+ 
+```
+【解决打开两个shell窗口应用主题不一致的问题】
+打开Shell 》 Shell【menu】 》 将设置用作默认设置
+
+
+```
+** Homebrew主题 18pt字体的shell**
+<img src="./image/shell_command_tool/shell.png">
+
 
 ## antiword 工具
 
