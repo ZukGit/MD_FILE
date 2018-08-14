@@ -814,10 +814,10 @@ https://github.com/acgotaku/BaiduExporter/blob/master/BaiduExporter.crx
 刷新百度云盘，发现多了个导出下载，就是它了，选择需要下载的文件----插件作用
 
 【Aria2GUI 是 aria2 的 UI实现界面软件】
-Aria2GUI 路径： https://github.com/yangshun1029/aria2gui/releases
-
+Aria2GUI 版本 1.3 (7) 可用 路径： https://github.com/yangshun1029/aria2gui/releases
+http://127.0.0.1:6800/jsonrpc?jsoncallback=1    【  检测Aria2GUI 是否正常工作 】
 【安装命令】    brew install aria2
-
+ 
 ```
 
 <img src="./image/shell_command_tool/aria2.png">
@@ -855,8 +855,17 @@ aria2c  --http-passwd  xxxxx   //  http密码
 ```
 
 
+```
+aria2c 命令实例： https://www.xuebuyuan.com/2047577.html
 
+aria2c -o QQ.exe http://dl_dir.qq.com/qqfile/qq/QQ2011/QQ2011.exe   
 
+aria2c -o 1.png http://host805073097.s507.pppf.com.cn/wp-content/image/wifi/img/1.png
+##默认下载保存地址  /Users/aaa
+```
+
+**命令行执行下载任务**
+<img src="./image/shell_command_tool/aria2_command.png">
 
 # B
 
