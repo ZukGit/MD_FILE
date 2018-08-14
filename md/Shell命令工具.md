@@ -292,13 +292,103 @@ PS1="[zukgit的MacPro-\`pwd\`]${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(gi
 
 
 ```
+
+
+```
+zsh 快捷键：
+Command + T    //  当前窗口打开一个新的tab页 
+Ctrl + Tab    // 在打开的Tab之间切换
+
+Command + N   //  新创建一个 Shell窗口
+Command +  1    // 在新创建的 Shell窗口进行切换  
+Command +  2  
+Command +  3
+
+
+Command + Q  // 强制关闭窗口 所有的窗口
+Command + W  // 关闭当前窗口
+Command + K   // 清理屏幕
+Command + H   // 窗口最小化
+```
 ** Homebrew主题 18pt字体的shell**
 <img src="./image/shell_command_tool/shell.png">
 
 
 ## antiword 工具
+```
+antiword 是一个可以把doc文件中的字符串进行输出的工具。
+antiword 是linux及其他RISC OS下免费的ms word文档读取器。使用它可以很方便的在Linux中读取word文档并输出为纯文本字符串。 其中的非字符串部分被过滤了。
+
+
+官网： http://www.winfield.demon.nl/#Mac%20OS%20X
+
+```
+
+```
+用法：   antiword    xxxxx.doc
+// 例如：      antiword   ./1.doc
+
+```
+**doc 文件**
+<img src="./image/shell_command_tool/doc.png">
+**antiword读取的字符串**
+<img src="./image/shell_command_tool/antiword.png">
+
 
 ## apktool 工具
+```
+apktool作用: 主要查看res文件下xml文件、AndroidManifest.xml和图片。（注意：如果直接解压.apk文件，xml文件打开全部是乱码）
+apktool下载地址： https://ibotpeaches.github.io/Apktool/install/
+
+apktool 安装命令( Mac ):   brew install apktool
+
+命令:  apktool d app.apk    【 java -jar apktool.jar d yourApkFile.apk 】
+```
+
+
+
+```
+apktool.jar的 使用方法:
+1. 将下载的 apktool_2.3.3.jar  名字改为  apktool.jar
+2. 运行CMD，把 app.apk放到所在目录，然后运行apktool d app.apk 【apk文件名字】就可以了，默认解压的文件就在app-release.apk所在目录。
+  例如 [ apktool d bibibi.apk ]
+
+
+java -jar apktool.jar d yourApkFile.apk
+// 注意`apktool.jar`是刚才下载后的jar的名称，`d`参数表示decode
+// 在这个命令后面还可以添加像`-o -s`之类的参数，例如
+// java -jar apktool.jar d yourApkFile.apk -o destiantionDir -s
+// 几个主要的参数设置方法及其含义：
+-f 如果目标文件夹已存在，强制删除现有文件夹
+-o 指定反编译的目标文件夹的名称（默认会将文件输出到以Apk文件名命名的文件夹中）
+-s 保留classes.dex文件（默认会将dex文件解码成smali文件）
+-r 保留resources.arsc文件（默认会将resources.arsc解码成具体的资源文件）
+
+
+```
+
+```
+apktool命令：
+
+//  都是显示  apktool 详细用法  
+apktool  -advance     //  显示  apktool 详细用法  
+apktool  --advanced   //  显示  apktool 详细用法  
+apktool  -v
+apktool  -q
+apktool  --quiet
+apktool  --quiet 
+apktool  --verbose  //  显示  apktool 详细用法  
+
+
+apktool d ./yourApkFile.apk    // 解析当前apk的xml文件 和 图片 （注意：如果直接解压.apk文件，xml文件打开全部是乱码）
+
+
+```
+
+**apktoll d xxx.apk 命令**
+<img src="./image/shell_command_tool/apktool.png">
+**antiword读取的字符串**
+<img src="./image/shell_command_tool/apktool_result.png">
 
 ## apng2gif 工具
 # B
