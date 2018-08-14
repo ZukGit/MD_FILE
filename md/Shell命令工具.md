@@ -314,6 +314,44 @@ Command + H   // 窗口最小化
 <img src="./image/shell_command_tool/shell.png">
 
 
+## align 工具
+```
+align简介：  该工具是一个把shell中的输入字符整齐排序的功能  对输入进行整齐padding再输出
+
+安装命令:   brew install  align  
+
+使用方法命令:   xxxx   | align
+
+```
+
+```
+【示例】
+arp -a  | align     【有 align】
+[/Users/aaa]➜  ~ git:(master*)arp -a  | align
+? (192.168.72.173) at 84:c7:ea:39:e6:a1 on en0 ifscope [ethernet]
+? (192.168.73.31)  at b4:b:44:9f:e2:f1  on en0 ifscope [ethernet]
+? (192.168.73.97)  at 20:47:da:9c:f7:18 on en0 ifscope [ethernet]
+? (192.168.73.180) at b8:fc:9a:2f:cc:8f on en0 ifscope [ethernet]
+? (192.168.79.254) at 0:42:5a:11:35:cd  on en0 ifscope [ethernet]
+? (224.0.0.251)    at 1:0:5e:0:0:fb     on en0 ifscope permanent  [ethernet]
+
+
+
+arp -a   【无 align】
+[/Users/aaa]➜  ~ git:(master*)arp -a         
+? (192.168.72.173) at 84:c7:ea:39:e6:a1 on en0 ifscope [ethernet]
+? (192.168.73.31) at b4:b:44:9f:e2:f1 on en0 ifscope [ethernet]
+? (192.168.73.97) at 20:47:da:9c:f7:18 on en0 ifscope [ethernet]
+? (192.168.73.180) at b8:fc:9a:2f:cc:8f on en0 ifscope [ethernet]
+? (192.168.79.254) at 0:42:5a:11:35:cd on en0 ifscope [ethernet]
+? (224.0.0.251) at 1:0:5e:0:0:fb on en0 ifscope permanent [ethernet]
+```
+
+
+
+
+
+
 ## antiword 工具
 ```
 antiword 是一个可以把doc文件中的字符串进行输出的工具。
@@ -748,6 +786,75 @@ j MD           /Users/aaa/Desktop/code_place/MD_GIT/MD_FILE
 
 **apparix的bm 和 to命令**
 <img src="./image/shell_command_tool/apparix.png">
+
+
+## archey 显示工具
+```
+archey 命令会为你安装  Archey，它是一个很酷的脚本，用来在一个多彩的Apple Logo显示你的Mac的配置
+
+安装命令 : brew install archey 
+
+
+执行 ：   archey
+
+
+```
+<img src="./image/shell_command_tool/archey.png">
+
+
+## aria2 命令行下载工具
+```
+【aria2 简介】：  aria2是一个多平台轻量级，支持 HTTP、FTP、BitTorrent 等多协议、多来源的命令行下载工具。Aria2 可以从多个来源、多个协议下载资源，最大的程度上利用了你的带宽。。Aria2 跟 IDM 类似，不仅可以多线程下载，还可以通过多来源进行下载，简单的说就是从多个镜像服务器同时下载一个文件，Aria2 还支持 BT 协议，弥补了 IDM 只支持 HTTP 和 FTP 的痛点。
+aria2是一款优秀的多线程下载器，不光可以下载百度网盘下载器也可以作为普通的下载器以及接管chrome等浏览器的下载器。
+
+
+【aria2 与百度网盘插件】
+百度网盘插件地址： 
+https://github.com/acgotaku/BaiduExporter/blob/master/BaiduExporter.crx
+刷新百度云盘，发现多了个导出下载，就是它了，选择需要下载的文件----插件作用
+
+【Aria2GUI 是 aria2 的 UI实现界面软件】
+Aria2GUI 路径： https://github.com/yangshun1029/aria2gui/releases
+
+【安装命令】    brew install aria2
+
+```
+
+<img src="./image/shell_command_tool/aria2.png">
+<a href="./file/shell_command_tool/BaiduExporter.crx">点击下载百度网盘插件</a>
+
+
+```
+【aria2命令  aria2c 命令】
+aria2c -i    xxxx.url.xxx.file  // 下载的文件url路径
+aria2c -v     //  aria2 version 1.34.0
+aria2c  -h       // aria2c 命令的 帮助文档
+aria2c  -d         //本地文件下载后保存的路径  默认  /Users/aaa
+aria2c  -o       // 下载文件的本地保存的名字 
+aria2c  -s  5  //   aria2c  -s  N 数字     // 下载一个文件使用多少个连接 connect  默认为5
+aria2c   -c  true                 // 暂停下载   
+aria2c   -c  false                // 继续下载
+aria2c   -j  5   //   aria2c  -j  N 数字     // 最大下载数量    默认为5
+aria2c   -x    5   //   aria2c  -x  N 数字     // 每个下载的服务器最大连接数  默认为5
+aria2c   -T    xxxx.torrent        // 设置下载的种子文件开始下载
+aria2c  -k  20M    // 最小分包下载大小  
+aria2c   -S    // 显示show 下载情况
+aria2c   --max-overall-upload-limit 10M  // 设置整理上传速度    bytes/sec.   You can append K or M(1K = 1024, 1M = 1024K).
+aria2c   --max-upload-limit=2M         // 设置每一个下载任务的最大限制的上传速度   
+
+aria2c    --listen-port 6881-7999  // 设置TCP下载 BitTorrent 下载的 端口号 默认6881-6999
+                              
+
+
+
+aria2c   --ftp-user   xxxxx   //  ftp账户
+aria2c  --ftp-passwd  xxxxx   //  ftp密码
+aria2c   --http-user   xxxxx   //  http账户
+aria2c  --http-passwd  xxxxx   //  http密码
+
+```
+
+
 
 
 
