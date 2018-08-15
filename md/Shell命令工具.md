@@ -1254,6 +1254,10 @@ ascii -o
 
 
 ```
+
+<img src="./image/shell_command_tool/ascii.png">
+
+
 # B
 
 ## brew | homebrew  (Mac-Shell专用)
