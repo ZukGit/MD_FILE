@@ -804,7 +804,9 @@ archey 命令会为你安装  Archey，它是一个很酷的脚本，用来在�
 
 ## aria2 命令行下载工具
 ```
-【aria2 简介】：  aria2是一个多平台轻量级，支持 HTTP、FTP、BitTorrent 等多协议、多来源的命令行下载工具。Aria2 可以从多个来源、多个协议下载资源，最大的程度上利用了你的带宽。。Aria2 跟 IDM 类似，不仅可以多线程下载，还可以通过多来源进行下载，简单的说就是从多个镜像服务器同时下载一个文件，Aria2 还支持 BT 协议，弥补了 IDM 只支持 HTTP 和 FTP 的痛点。
+【aria2 简介】：  aria2是一个多平台轻量级，支持 HTTP、FTP、BitTorrent 等多协议、多来源的命令行下载工具。
+Aria2 可以从多个来源、多个协议下载资源，最大的程度上利用了你的带宽。。Aria2 跟 IDM 类似，不仅可以多线程下载，
+还可以通过多来源进行下载，简单的说就是从多个镜像服务器同时下载一个文件，Aria2 还支持 BT 协议，弥补了 IDM 只支持 HTTP 和 FTP 的痛点。
 aria2是一款优秀的多线程下载器，不光可以下载百度网盘下载器也可以作为普通的下载器以及接管chrome等浏览器的下载器。
 
 
@@ -872,11 +874,13 @@ aria2c -o 1.png http://host805073097.s507.pppf.com.cn/wp-content/image/wifi/img/
 ```
 Argon2是一个密钥导出函数（KDF），并提供了几个改进的版本：
 
-【1】Argon2d ： 最大限度地提高了对GPU破解攻击的抵抗力。它以密码相关的顺序访问存储器阵列，这降低了时间 - 存储器权衡（TMTO）攻击的可能性，但是引入了可能的侧面信道攻击。
+【1】Argon2d ： 最大限度地提高了对GPU破解攻击的抵抗力。它以密码相关的顺序访问存储器阵列，
+    这降低了时间 - 存储器权衡（TMTO）攻击的可能性，但是引入了可能的侧面信道攻击。
 
 【2】Argon2i ： 优化了抵御侧向通道攻击的能力。它以密码无关的顺序访问内存阵列。
 
-【3】Argon2id：是一个混合版本。它遵循Argon2i方法进行第一次通过内存，Argon2d方法用于后续通过。Internet-Draft建议使用Argon2id，除非有理由选择其他两种模式之一。
+【3】Argon2id：是一个混合版本。它遵循Argon2i方法进行第一次通过内存，Argon2d方法用于后续通过。
+    Internet-Draft建议使用Argon2id，除非有理由选择其他两种模式之一。
        
 上述三种模式允许通过三个参数来进行控制：      
 memory_cost (integer) -需要内存大小 计算 Argon2 散列时的最大内存
@@ -899,7 +903,8 @@ boolean flag = password_verify (“明文12345678”, “faufbjakbfakjbkfjabfajk
 明文经过password_hash函数哈希过后的值 与密文相等 相等会返回true，不相等会返回false
 
 
-在PHP中通过函数 password_needs_rehash 检测指定的hash值 密文是否实现了提供的算法和选项。 返回true表示 密文 就是对应加密算法生成的     返回false 表示密文不是当前加密算法生产的
+在PHP中通过函数 password_needs_rehash 检测指定的hash值 密文是否实现了提供的算法和选项。 
+返回true表示 密文 就是对应加密算法生成的     返回false 表示密文不是当前加密算法生产的
 
 boolean flag= password_needs_rehash(“jkfjks密文”, PASSWORD_DEFAULT);
       
@@ -1014,6 +1019,211 @@ Verification ok
 
 ```
 
+
+## arp-scan
+```
+简介： arp-scan是一个用来进来系统发现和指纹识别的命令行工具。它可以构建并发送ARP请求到指定的IP地址，并且显示返回的任何响应。
+ARP（地址解析协议）是一种协议，通过已知的IP网络地址，计算出了链路层（第2层）地址Mac地址。 ARP协议在RFC826以太网地址解析协议定义。
+
+ARP协议被设计成允许被用于任何链路层和网络层协议。然而在实际中它仅用于以太网（包括802.11无线）和IPv4，我们假定在整个文档中，这些协议。 IPv6使用NDP（邻居发现协议）来代替，这是一种不同的协议。
+
+ARP是一个不可路由的协议，因此只能在同一个以太网网络上的系统之间使用。
+
+
+arp-scan可以做到这些：
+1.使用一个可以配置的输出带宽或者包速率，发送ARP包到任意多个目标主机。
+2.对于系统发现，这是非常有用的，你可能需要扫描大量的地址空间。 发现本地网络上的所有主机
+3.以灵活的方式构建并传出ARP报文。
+4.arp-scan可以控制ARP包中所有的字段以及以太网帧的头部。
+5.解码并且显示任何返回的数据包。
+6.arp-scan可以解码显示返回的任何ARP数据包，并且使用MAC地址查找供应商。
+7.使用arp-指纹工具采集IP主机的指纹
+https://www.oschina.net/translate/arp-scan-arp-scanning-and-fingerprinting-tool?print
+
+```
+
+
+```
+arp-scan -h  帮助手册
+
+Usage: arp-scan [options] [hosts...]
+
+【1】目标主机必须在命令行中除非带有 --file 参数 挥着 带有 -localnet 参数
+【2】arp-scan命令由于需要读网络包所以需要root的权限才能执行
+【3】目标主机可以以IP地址或者 主机名hostname的形式出现，或者IP地址/掩码 的形式出现
+【4】目标地址可以以 IPstart-IPend  IP地址开始起点-IP地址结束终点的形式出现
+(如 192.168.1.3-192.168.1.27)或者 
+IP地址:子网掩码的形式(如 192.168.1.0:255.255.255.0) ，工具将扫描子网掩码下的所有IP地址
+【5】arp-scan可选参数可以通过 命令行的形式输入，也可以通过 --file 指定包含option执行操作的文件来给 arp-scan工具执行
+
+Options 可选参数:
+<s> 表示一个字符串 A character string, e.g. --file=hostlist.txt.
+
+<i> 表示一个整数值 An integer, which can be specified as a decimal number or as a hexadecimal  number if preceeded with 0x, e.g. --arppro=2048 or --arpro=0x0800.
+
+<f> 表示一个浮点数值 A floating point decimal number, e.g. --backoff=1.5.
+
+<m> 表示一个mac地址 An Ethernet MAC address, which can be specified either in the format
+    01:23:45:67:89:ab, or as 01-23-45-67-89-ab. The alphabetic hex characters
+    may be either upper or lower case. E.g. --arpsha=01:23:45:67:89:ab.
+
+<a> 表示一个IP地址 An IPv4 address, e.g. --arpspa=10.0.0.1
+
+<h> 表示以16进制输入的二进制数据 Binary data specified as a hexadecimal string, which should not
+    include a leading 0x. The alphabetic hex characters may be either
+    upper or lower case. E.g. --padding=aaaaaaaaaaaa
+
+<x> 表示其他的一些输入 Something else. See the description of the option for details.
+
+arp-scan -f ./address.txt   【 读取address.txt每行的IP地址 到aep-scan 】
+
+
+arp-scan  --interface=en0 --localnet    【通过网络接口 以及掩码自动所搜主机列表 包括广播地址 】
+          对于一个地址 10.0.0.1 以及子网掩码 255.255.255.0  将会产生256个网络IP地址
+          与10.0.0.0-10.0.0.255 所表示的地址等价。如果你用了这个 --localnet命令参数
+          那么就不可以同时使用 -f 参数。  这个参数必须包含另一个 --interface参数使用，该
+          --interface用于指定当前网络工作的网卡接口名称
+          
+    
+
+arp-scan --retry=3  【 与 host主机进行发包尝试的次数 默认是2 】
+【arp-scan  --interface=en0 --localnet  --retry=3  】
+
+
+arp-scan --timeout=1000  --backoff=2  【 设置每个主机的 尝试访问超时时间 单位是 ms 毫秒  默认是 500ms ，有参数 --backoff=1.5 超时退避指数 配合使用】
+【arp-scan  --interface=en0 --localnet  --retry=3  --timeout=1000  --backoff=2  】                               
+     【当第一次发生超时时那 那么下次的超时时间是 当前 timeout * backoff = 2000ms = 2秒 ， 再下次超时时间为4 秒 】
+
+
+arp-scan  --bandwidth=512KB     【设置传输包的带宽  默认是 256000 bit/s = 32KB/s   可以设置为 --bandwidth=64K  --bandwidth=1M 】
+【arp-scan  --interface=en0 --localnet  --retry=3  --timeout=1000  --backoff=2  --bandwidth=512K  】 
+
+
+arp-scan -v   【显示更多详情信息】
+【 arp-scan  --interface=en0 --localnet  --retry=3  --timeout=1000  --backoff=2  --bandwidth=512K -v   】 
+
+arp-scan --version    【显示版本信息】
+【
+arp-scan 1.9.5
+Copyright (C) 2005-2016 Roy Hills, NTA Monitor Ltd.
+arp-scan comes with NO WARRANTY to the extent permitted by law.
+You may redistribute copies of arp-scan under the terms of the GNU
+General Public License.
+For more information about these matters, see the file named COPYING.
+libpcap version 1.8.1 -- Apple version 67.60.1
+  】
+
+
+arp-scan  --random   【 不按顺序随机发送ARP包到指定的主机 host】
+
+
+
+arp-scan   --quiet    【 显示最少最小的输出信息 】
+【 arp-scan  --interface=en0 --localnet  --random --retry=3  --timeout=1000  --backoff=2  --bandwidth=512K   --quiet   】 
+
+arp-scan  --plain      【 只显示有回复的主机列表 不显示那么没有回复的主机列表 】
+【 arp-scan  --interface=en0 --localnet  --random --retry=3  --timeout=1000  --backoff=2  --bandwidth=512K  -v --plain   】 
+
+
+arp-scan  --ignoredups     【不展示重发的包 默认重发的包会被标记为 (DUP: n) 】
+【 arp-scan  --interface=en0 --localnet  --random --retry=3  --timeout=1000  --backoff=2  --bandwidth=512K  -v  --ignoredups     】 
+
+
+
+
+arp-scan   --ouifile=./ieee-oui.txt  【用于把当前的IP地址进行Map映射  对对应的MAc地址 进行映射显示】
+【最新的文件信息网站：   http://standards-oui.ieee.org/oui/oui.txt 】
+【科普： Mac地址申请的方式】
+【1.OUI方式： 一般都是以这种方式申请为多，因为总共12位16进制码的MAC地址, 厂商ID占前6位, 其他６位客户都可以随意使用，自行管理，
+申请费用是1650美金,一次性收费。这样申请一个厂商ID号可以享用2的24次方即16777216个MAC地址，通常记为1600万个。】
+【2.IAB方式： 这种方式比较特别，主要是针对个人用户。因为这种方式最多只能申请4096个MAC地址，也就是只有３位16进制，12位二进制 2的12次方= 4096的地址可以使用。】
+
+【/usr/local/Cellar/arp-scan/1.9.5/share/arp-scan/ieee-oui.txt 保存的是Mac地址前三位数 和生产产商的关系】
+080007	Apple, Inc.
+000A95	Apple, Inc.
+48AD08	HUAWEI TECHNOLOGIES CO.,LTD
+2CAB00	HUAWEI TECHNOLOGIES CO.,LTD
+2082C0	Xiaomi Communications Co Ltd
+C46AB7	Xiaomi Communications Co Ltd
+38BC1A	MEIZU Technology Co., Ltd.
+90F052	MEIZU Technology Co., Ltd.
+683E34	MEIZU Technology Co., Ltd.
+2C5731 MEIZU Technology Co., Ltd.
+0022DE	OPPO Digital, Inc.
+78009E	Samsung Electronics Co.,Ltd
+6073BC	zte corporation
+FC1A11	vivo Mobile Communication Co., Ltd.
+78FFCA	TECNO MOBILE LIMITED【传音】
+D0577B	Intel Corporate
+8056F2	Hon Hai Precision Ind. Co.,Ltd.
+E09861	Motorola Mobility LLC, a Lenovo Company
+E02CB2	Lenovo Mobile Communication (Wuhan) Company Limited
+F80D60	CANON INC.
+4040A7	Sony Mobile Communications AB
+045604	Gionee Communication Equipment Co.,Ltd.
+982F3C	Sichuan Changhong Electric Ltd.
+506441	Greenlee  【格力】
+D896E0	Alibaba Cloud Computing Ltd.
+001906	Cisco Systems, Inc
+A826D9	HTC Corporation
+00A0C6	Qualcomm Inc.
+000A00	Mediatek Corp. 【MTK】
+【我们可以自定义对应的关系  并不指定前三位 这样能客制化 知道的MAC地址的机器的名字的 arp-scan命令显示出现】
+【1.txt   --ouifile=./1.txt   这样就能显示Mac地址 对应客制化关系图  能看得到谁是谁了】
+64B0A6AE2EA2	小红的电脑
+88E9FE7B705D	小红的手机
+2C5731C6E212	小明的手机
+1C91485E3992	小黑的手机
+8C8590870F94	小龙的手机
+B019C63062B6	小林的手机
+34D7128DE5E0	小海的手机
+【 arp-scan  --interface=en0 --localnet  --random --retry=3  --timeout=1000  --backoff=2  --bandwidth=512K  -v  --ignoredups  --ouifile=./1.txt   】 
+
+
+
+arp-scan  --srcaddr=64:B0:A6:AE:2E:A2    【设置ARP包的原地址为 64B0A6AE2EA2 】
+
+
+arp-scan  --destaddr=64:B0:A6:AE:2E:A2    【设置ARP包的目的地址为 64B0A6AE2EA2 】
+arp-scan  --destaddr=ff:ff:ff:ff:ff:ff    【目的地址为ff  说明这个包是一个广播包】
+
+
+
+arp-scan  --arpsha=64:B0:A6:AE:2E:A2 【设置ARP包中的 ar$sha 原地址域 为指定的mac地址 】
+arp-scan  --arptha=64:B0:A6:AE:2E:A2 【设置ARP包中的 ar$tha 目的地址域 为指定的mac地址  默认是0 】
+
+
+arp-scan  --prototype=0x0806     【设置以太网协议版本】
+
+arp-scan  --arphrd=1   【This sets the 16-bit ar$hrd field in the ARP packet 设置硬件类型】
+
+arp-scan --arppro=0x0800  【设置ARP协议版本  ar$pro  】  
+
+arp-scan  --arphln=6 【设置硬件地址长度 ar$hln  默认为6】  
+
+arp-scan  --arppln=4  【设置协议地址长度 ar$pln  默认为4】    
+
+
+arp-scan --arpop=1  【设置ARP协议地操作类型 ar$op  默认为1】   
+
+arp-scan --arpspa=  【设置目的IP地址 ar$spa  32bit 】  
+
+arp-scan --padding=0123456789ABCDEF  【设置ARP协议不满一帧情况下 在包末尾填充的二进制数据】
+
+
+arp-scan --pcapsavefile=./xxx.pcap   【把当前接收到的包写入pcap文件   这个文件可以被软件  wireshake tcpdump这样的工具分析】
+arp-scan -W=./xxx.pcap 
+【 arp-scan  --interface=en0 --localnet   --rtt  --retry=2  --timeout=1000  --backoff=2  --bandwidth=512K  -v  --ignoredups    】
+
+
+arp-scan --rtt   【显示 RTT  Round-Trip-Time  往返的时间】
+arp-scan -D 
+【 arp-scan  --interface=en0 --localnet   --rtt  --retry=2  --timeout=1000  --backoff=2  --bandwidth=512K  -v   --pcapsavefile=./xxx.pcap   】
+
+```
+
+**arp-scan --pcapsavefile捕获到的包对应的手机IP地址与Mac地址**
+<img src="./image/shell_command_tool/arp_scan.png">
 
 
 # B
