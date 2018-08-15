@@ -867,6 +867,155 @@ aria2c -o 1.png http://host805073097.s507.pppf.com.cn/wp-content/image/wifi/img/
 **命令行执行下载任务**
 <img src="./image/shell_command_tool/aria2_command.png">
 
+
+## Argon2 加密工具(下一代加密工具 比MD5 SHA1优秀得多)
+```
+Argon2是一个密钥导出函数（KDF），并提供了几个改进的版本：
+
+【1】Argon2d ： 最大限度地提高了对GPU破解攻击的抵抗力。它以密码相关的顺序访问存储器阵列，这降低了时间 - 存储器权衡（TMTO）攻击的可能性，但是引入了可能的侧面信道攻击。
+
+【2】Argon2i ： 优化了抵御侧向通道攻击的能力。它以密码无关的顺序访问内存阵列。
+
+【3】Argon2id：是一个混合版本。它遵循Argon2i方法进行第一次通过内存，Argon2d方法用于后续通过。Internet-Draft建议使用Argon2id，除非有理由选择其他两种模式之一。
+       
+上述三种模式允许通过三个参数来进行控制：      
+memory_cost (integer) -需要内存大小 计算 Argon2 散列时的最大内存
+time_cost (integer) - 执行时间处理时间  计算 Argon2 散列时最多的时间
+threads (integer) -并行度  计算 Argon2 散列时最多的线程数
+
+```
+
+```
+在PHP方法中 对 MD5   SHA1  Bcrypt  Argon2 加密方式进行对比
+
+在PHP中通过 ## password_hash ## 来生成 第二个参数对应加密算法的密文
+PASSWORD_DEFAULT= Bcrypt【默认是 Bcrypt 加密算法】
+PASSWORD_ARGON2I 【 Argon2 加密算法 】
+$password = password_hash(“明文1234578”, PASSWORD_DEFAULT);
+
+
+在PHP中通过  验证密码和hash值是否匹配可以使用 ## password_verify ## 函数
+boolean flag = password_verify (“明文12345678”, “faufbjakbfakjbkfjabfajk密文”)
+明文经过password_hash函数哈希过后的值 与密文相等 相等会返回true，不相等会返回false
+
+
+在PHP中通过函数 password_needs_rehash 检测指定的hash值 密文是否实现了提供的算法和选项。 返回true表示 密文 就是对应加密算法生成的     返回false 表示密文不是当前加密算法生产的
+
+boolean flag= password_needs_rehash(“jkfjks密文”, PASSWORD_DEFAULT);
+      
+      
+http://www.runoob.com/try/runcode.php?filename=demo_intro&type=php    测试网站  
+
+<php>
+	
+$password=123456;
+	
+echo "MD5:\n"; 
+var_dump(md5($password));
+echo "SHA1:\n";
+var_dump(sha1($password));
+echo "Bcrypt:\n";
+var_dump($password = password_hash($password, PASSWORD_DEFAULT));
+echo "Argon2I:\n";
+var_dump($password = password_hash($password, PASSWORD_ARGON2I));
+	
+</php>
+
+输出：
+MD5:
+string(32) "e10adc3949ba59abbe56e057f20f883e"
+SHA1:
+string(40) "7c4a8d09ca3762af61e59520943dc26494f8941b"
+Bcrypt:
+string(60) "$2y$10$m.t9Gq4h5IT0UV7a4tapNuTQUqbx1JncyfuXIjDa9HdL6V/3iDMU2"
+Argon2I:
+string(95) "$argon2i$v=19$m=1024,t=2,p=2$YmlGMWRaNHA2VWFVYlpTNQ$8xzVvtfPhdeeL+1NPr5AiA+L/fwr8pl5CADuj7H6usU"
+ 
+再次运行输出:
+MD5:
+string(32) "e10adc3949ba59abbe56e057f20f883e"
+SHA1:
+string(40) "7c4a8d09ca3762af61e59520943dc26494f8941b"
+Bcrypt:
+string(60) "$2y$10$UY2BfPh.Lyeibs96oEScCuwHB6AbeiC8hgY/80eXvPdCwKpeasmri"
+Argon2I:
+string(95) "$argon2i$v=19$m=1024,t=2,p=2$OTJIS01rUnhGamJ3cXFSSA$sFfHpfji1NkbPmhUhqWJeTsT3o4cIwrGm67geYjS3WA"
+ 
+
+
+
+结论：
+显然易见 我们可以发现 bcrypt 和 argon2i 更加安全 , 每次运行结果不一样   
+如果有不相信的同学 可以到一些解密网站 如 http://www.cmd5.com/ 
+等去尝试解密 你会发现 md5 和 sha1 是真的非常容易被破解
+ 
+```
+
+```
+【argon2 命令】 【密码是从标准shell输入流输入的 所以需要用到 echo “xxx” | argon2 xx 】
+argon2 -h
+Usage:  argon2 [-h] salt [-i|-d|-id] [-t iterations] [-m log2(memory in KiB) | -k memory in KiB] [-p parallelism] [-l hash length] [-e|-r] [-v (10|13)]
+	Password is read from stdin
+Parameters:
+	salt	【 用于加密的配对钥匙码 至少是8位的(配对钥匙码不同 相同的明文生成的密文不同) 】 The salt to use, at least 8 characters
+	-i		【使用 Argon2i 版本生成密文  默认 】Use Argon2i (this is the default)
+	-d		【使用 Argon2d 版本生成密文 】Use Argon2d instead of Argon2i
+	-id		【使用 Argon2id 版本生成密文 】Use Argon2id instead of Argon2i
+	-t N	【设置密文生成需要迭代运行的字数 默认是3 】	Sets the number of iterations to N (default = 3)
+	-m N	【设置密文生成的使用内存空间 默认是 2^12 KiB = 4096 KB 】 Sets the memory usage of 2^N KiB (default 12)
+	-k N	【设置密文生成的使用内存空间 默认是 4096 KiB  4M空间  和-m 参数一样 但表示的不同  】Sets the memory usage of N KiB (default 4096)
+	-p N	【设置密文生成需要运行的线程数量 默认是1 】Sets parallelism to N threads (default 1)
+	-l N	【设置明文产生的hash字符的字节长度 默认是 32 （ 64 个 十六进制字符0-f） 】Sets hash output length to N bytes (default 32)
+	-e		 【仅仅输出 产生的加密 hash 哈希值】Output only encoded hash
+	-r		 【仅仅输出加密hash值对应的字节 16进制】Output only the raw bytes of the hash
+	-v (10|13)	Argon2 version (defaults to the most recent version, currently 13)
+	-h		Print argon2 usage
+
+
+
+
+使用方法：
+
+
+
+【  echo -n "12345678" | argon2 zukgit_bb   】  【除了salt配对钥匙码 需要完全自定义 其余全都用默认的配置】
+输出：
+Type:		Argon2i
+Iterations:	3
+Memory:		4096 KiB
+Parallelism:	1
+Hash:		04f449693957255e70784d0357a829ee79cc7d34db283dedb032260973f5e639
+Encoded:	$argon2i$v=19$m=4096,t=3,p=1$enVrZ2l0X2Ji$BPRJaTlXJV5weE0DV6gp7nnMfTTbKD3tsDImCXP15jk
+0.011 seconds
+Verification ok
+
+
+
+
+
+
+【 echo -n "12345678" | argon2 zukgit_bb -id -t 3 -m 16 -p 3 -l 40   】
+输出：
+Type:		Argon2id
+Iterations:	3
+Memory:		65536 KiB
+Parallelism:	3
+Hash:		821d7aa13642c138d3f8465e3854dd2d273613654730ebc7aa452f67b934ae185d6e3ffb342123c9
+Encoded:	$argon2id$v=19$m=65536,t=3,p=3$enVrZ2l0X2Ji$gh16oTZCwTjT+EZeOFTdLSc2E2VHMOvHqkUvZ7k0rhhdbj/7NCEjyQ
+0.205 seconds
+Verification ok
+
+解释： 使用的加密类型是 -id Argon2id加密版本算法  ， 密文产生需要迭代的字数 -t 3  对应3次  ，
+      需要的空间大小 -m 16 对应  2^16 KiB  = 64MB ，   -p 3   使用线程数量为3 ， 
+      -l  40 表示  hash值保存为 40个字节(即 80位 16进制)
+       
+
+
+
+```
+
+
+
 # B
 
 ## brew | homebrew  (Mac-Shell专用)
