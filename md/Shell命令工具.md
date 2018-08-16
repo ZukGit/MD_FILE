@@ -1227,12 +1227,46 @@ arp-scan -D
 
 ## arpoison 工具
 ```
-https://blog.csdn.net/flfblog/article/details/8745293
+arpoison:arpoison 是ARP地址解析协议即ARP(Address Resolution Protocol)的防御攻击武器
+简介：https://blog.csdn.net/flfblog/article/details/8745293
+http://www.sohu.com/a/245155421_609556
+https://www.cnblogs.com/k-yukiho/p/6669234.html
+
+
+安装命令(Mac)： brew install  arpoison
+
+
+
+使用方法: 
+arpoison -help
+Usage: -i <device> -d <dest IP> -s <src IP> -t <target MAC> -r <src MAC> [-a] [-w time between packets] [-n number to send]
+
+参数说明
+-i 指定发送arp包的网卡接口eth0
+-d 192.168.1.1 指定目的ip为192.168.1.1 
+-s 192.168.1.101 指定源ip为192.168.1.101
+-t ff:ff:ff:ff:ff:ff 指定目的mac地址为ff:ff:ff:ff:ff:ff(arp广播地址)
+-r 00:1c:bf:03:9f:c7 指定源mac地址为00:1c:bf:03:9f:c7
+-w 等待时间
+-n 发送包的数目
+
+
+
+防御ARP欺骗
+sudo arpoison -i en0 -d 192.168.1.1 -s 192.168.1.101 -t ff:ff:ff:ff:ff:ff -r 00:1c:bf:03:9f:c7
+【发送arp广播 告诉当前网络中的所有主机  IP地址192.168.1.101  对应的Mac地址是 00:1c:bf:03:9f:c7】
+
+
+进行arp欺骗
+sudo arpoison -i eth0 -d 192.168.1.50 -s 192.168.1.1 -t ff:ff:ff:ff:ff:ff -r 00:1c:bf:03:9f:c7
+【伪装成网关发送给 IP地址192.168.1.50 高速这个主机网关192.168.1.1 的mac地址是  00:1c:bf:03:9f:c7 ， 其实这个地址是错误的 以此达到 ARP欺骗攻击 】
+
+
 
 ```
 ## ascii 工具
 ```
-
+安装命令(Mac)： brew install  ascii
 
 ascii -o     
   000 NUL   020 DLE   040     060 0   100 @   120 P   140 `   160 p 
@@ -1257,6 +1291,131 @@ ascii -o
 
 <img src="./image/shell_command_tool/ascii.png">
 
+
+## AsciiDoc
+```
+AsciiDoc简介：  AsciiDoc是一个成熟的、为大型文档设计的标记语言。AsciiDoc类似于MarkDown语法，提供的功能比Markdown更丰富的  【文档属性，设置作者、版本信息等】【语法高亮】【表格】 
+【Include 功能，将大文档拆分几个文件】 【自定义块语法，可扩展性】
+如果你在搭建复杂的文档环境，并且认为 Markdown 已经不能满足需求，那么可以试试 AsciiDoc。
+http://ju.outofmemory.cn/entry/95397
+
+
+安装命令(mac): 
+brew install asciidoc
+
+```
+
+
+
+
+## asciinema
+```
+简介：asciinema 是一个在终端下非常棒的录制分享软件，基于文本的录屏工具，对终端输入输出进行捕捉， 然后以文本的形式来记录和回放！这使其拥有非常炫酷的特性：在 播放 过程中你随时可以暂停， 然后对“播放器”中的文本进行复制或者其它操作！
+
+官网: https://asciinema.org/
+
+
+安装命令： brew install asciinema
+
+
+```
+
+
+```
+asciinema帮助手册：
+example usage:
+  Record terminal and upload it to asciinema.org:
+    asciinema rec    【开始录制命令】
+  Record terminal to local file:
+    asciinema rec demo.cast     【开始本地录制视频】
+  Record terminal and upload it to asciinema.org, specifying title:
+    asciinema rec -t "My git tutorial"  【开始录制 完成之后以  My git tutorial 为标题上传到 官网 www.asciinema.org 】
+  Record terminal to local file, limiting idle time to max 2.5 sec:
+    asciinema rec -i 2.5 demo.cast  【录制本地视频 命令为demo.cast 最长闲置时间2.5秒】
+  Replay terminal recording from local file:
+    asciinema play demo.cast    【本地视频播放】
+  Replay terminal recording hosted on asciinema.org:
+    asciinema play https://asciinema.org/a/difqlgx86ym6emrmd8u62yqu8 【播放官网视频】
+  Print full output of recorded session:
+    asciinema cat demo.cast   【打印所有本地视频中输入的内容】
+
+
+```
+
+```
+录制命令： asciinema rec
+回车后你会看到下面两行输出
+asciinema: recording asciicast to 
+/var/folders/dn/g8yhcfnj3gnbj9421vfpb52c0000gn/T/tmpf0t3tjw5-ascii.cast
+asciinema: press <ctrl-d> or type "exit" when you're done
+这表示录制已经开始 显示了保存的路径，你可以按 Ctrl+D 或输入 exit 进行退出
+
+回放命令： asciinema play /var/folders/dn/g8yhcfnj3gnbj9421vfpb52c0000gn/T/tmpf0t3tjw5-ascii.cast
+asciinema play https://asciinema.org/a/170142     【播放官网上的视频】
+
+打印播放内容命令：
+asciinema cat /var/folders/dn/g8yhcfnj3gnbj9421vfpb52c0000gn/T/tmpf0t3tjw5-ascii.cast
+
+```
+
+
+## asciinema2gif
+```
+简介：  该工具用于把 asciinema record 产生的 shell视频转换为 gif动态图片文件
+项目地址：  https://github.com/tav/asciinema2gif
+
+```
+
+
+```
+帮助手册： 
+asciinema2gif [options] <asciinema_id|asciinema_api_url>
+asciinema2gif -s small 
+asciinema2gif -s medium 
+asciinema2gif -s big
+
+asciinema2gif -t asciinema
+asciinema2gif -t tango
+asciinema2gif -t olarized-dark
+asciinema2gif -t solarized-light
+asciinema2gif -t monokai
+
+asciinema2gif -p 2     【播放速度】
+
+asciinema2gif -o xxxx.gif  【默认 asciicast.gif 】
+
+  options:
+    -s <size>, --size <size>      One of 'small', 'medium', 'big'
+    -p <speed>, --speed <speed>   Any integer (whole number) to multiply regular speed by
+    -t <theme>, --theme <theme>   One of 'asciinema', 'tango', 'solarized-dark', 'solarized-light', 'monokai'
+    -o <file>, --output <file>    File to write to (defaults to 'asciicast.gif' in current directory)
+    -h, --help                    Show this help.
+
+
+```
+
+```
+使用命令：
+asciinema2gif --size small --speed 2 --theme  8332
+
+asciinema2gif --theme solarized-light -o "${HOME}/Desktop/another.gif" https://asciinema.org/api/asciicasts/8332
+
+【注意】 尼玛这个工具只能对上传到asciinema网站的record，拥有编号ID的才能转为gif 本地的不能转为gif~~~  差评 
+```
+
+
+
+
+##  asciiquarium shell水族箱动画
+```
+asciiquarium ：  该工具是一个在shell显示字符构建的水族箱动画，仅提供观赏。
+
+安装命令：   brew install asciiquarium
+使用命令：   asciiquarium
+
+```
+
+<img src="./image/shell_command_tool/asciiquarium.png">
 
 # B
 
