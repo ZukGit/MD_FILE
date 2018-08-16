@@ -1417,6 +1417,152 @@ asciiquarium ：  该工具是一个在shell显示字符构建的水族箱动画
 
 <img src="./image/shell_command_tool/asciiquarium.png">
 
+
+
+
+##  autossh 远程登录界面
+```
+autossh 简介： Automatically restart SSH sessions and tunnels
+autossh本身就是个管理、维护ssh的命令，所以其参数也只有最基本的-V(version)、-M(monitoring)、-f(background)。而我们常说的端口转发，反向代理等厉害的功能其实是ssh实现的，我们把参数传给autossh，然后autossh传给ssh来实现特定的功能。
+
+SSH简介： SSH 为 Secure Shell 的缩写 （安全外壳协议）。SSH 为建立在应用层基础上的安全协议 (七层网络架构的第一层)。
+SSH 是目前较可靠，专为远程登录会话和其他网络服务提供安全性的协议。
+利用 SSH 协议可以有效防止远程管理过程中的信息泄露问题。SSH最初是UNIX系统上的一个程序，后来又迅速扩展到其他操作平台。SSH在正确使用时可弥补网络中的漏洞。
+传统的网络服务程序，如：ftp、pop和telnet在本质上都是不安全的，因为它们在网络上用明文传送口令和数据，别有用心的人非常容易就可以截获这些口令和数据
+通过使用SSH，你可以把所有传输的数据进行加密，而且也能够防止DNS欺骗和IP欺骗
+使用SSH，还有一个额外的好处就是传输的数据是经过压缩的，所以可以加快传输的速度。
+SSH有很多功能，它既可以代替Telnet，又可以为FTP、PoP、甚至为PPP提供一个安全的"通道"。
+
+
+SSH提供两种级别的安全验证。
+第一种级别（基于口令的安全验证）
+          只要你知道自己帐号和口令，就可以登录到远程主机。所有传输的数据都会被加密，但是不能保证你正在连接的服务器就是你想连接的服务器
+          可能会有别的服务器在冒充真正的服务器，也就是受到“中间人”这种方式的攻击。
+          
+第二种级别（基于密匙的安全验证）
+          需要依靠密匙，也就是你必须为自己创建一对密匙，并把公用密匙放在需要访问的服务器上。如果你要连接到SSH服务器上，客户端软件就会向服务器发出请求，请求用你的密匙进行安全验证。
+          服务器收到请求之后，先在该服务器上你的主目录下寻找你的公用密匙，然后把它和你发送过来的公用密匙进行比较。
+          如果两个密匙一致，服务器就用公用密匙加密“质询”（challenge）并把它发送给客户端软件。客户端软件收到“质询”之后就可以用你的私人密匙解密再把它发送给服务器。
+          用这种方式，你必须知道自己密匙的口令。但是，与第一种级别相比，第二种级别不需要在网络上传送口令。
+          第二种级别不仅加密所有传送的数据，而且“中间人”这种攻击方式也是不可能的（因为他没有你的私人密匙）。但是整个登录的过程可能需要10秒
+```
+
+
+```
+ssh的结构： 
+ssh服务端一般是sshd进程，提供了对远程连接的处理，一般包括公共密钥认证、密钥交换、对称密钥加密和非安全连接。
+服务端是一个守护进程(daemon)，他在后台运行并响应来自客户端的连接请求。
+
+客户端包含ssh程序以及像scp（远程拷贝）、slogin（远程登陆）、sftp（安全文件传输）等其他的应用程序。
+
+ssh的工作机制：
+他们的工作机制大致是本地的客户端发送一个连接请求到远程的服务端，服务端检查申请的包和IP地址再发送密钥给SSH的客户端，
+本地再将密钥发回给服务端，自此连接建立。SSH 1.x和SSH 2.x在连接协议上有一些差异。
+
+启动SSH服务器后，sshd运行起来并在默认的22端口进行监听（你可以用 # ps -waux | grep sshd 来查看sshd是否已经被正确的运行了）
+SSH服务器进程 sshd 会一直等待连接请求。当请求到来的时候SSH守护进程会产生一个子进程，该子进程进行这次的连接处理。
+SSH采用面向连接的TCP协议传输 应用22号端口 安全系数较高
+```
+
+
+```
+ssh的安装
+SSH分客户端  openssh-client  和  openssh-server
+
+如果你只是想登陆别的机器的SSH只需要安装openssh-client
+【  Linux，sudo apt-get install openssh-client   】
+【  Mac ，brew install openssh   】
+
+如果要使本机开放SSH服务就需要安装 openssh-server。
+
+```
+
+```
+【 Mac下启动ssh服务 】
+mac本身安装了ssh服务，默认情况下不会开机自启
+
+1.启动sshd服务：
+sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
+
+2.停止sshd服务：
+sudo launchctl unload -w /System/Library/LaunchDaemons/ssh.plist
+
+3查看是否启动：
+sudo launchctl list | grep ssh
+
+如果看到下面的输出表示成功启动了：
+－－－－－－－－－－－－－－
+- 0 com.openssh.sshd
+```
+
+```
+【 Mac下登录 ssh服务 提供 远程控制功能】
+ssh aaa@192.168.73.241              【  ssh   远程计算机用户名@远程计算机IP地址   (默认端口是 22) 】
+The authenticity of host '192.168.73.241 (192.168.73.241)' can't be established.
+ECDSA key fingerprint is SHA256:muB5tHgJPeaYXqoQ2L00qAHtlZ6FTN6Wi0fxt+Q7TD8.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '192.168.73.241' (ECDSA) to the list of known hosts.
+Password:                             【在此输入 aaa远程计算机用户名 对应的密码 】
+Last login: Thu Aug 16 15:16:44 2018
+[/Users/aaa]➜  ~       【 完成登录】
+
+
+
+
+
+
+```
+<img src="./image/shell_command_tool/ssh.png">
+
+
+```
+SSH帮助手册：
+ssh -V             // OpenSSH_7.4p1, LibreSSL 2.5.0
+ssh -h
+usage: ssh [-1246AaCfGgKkMNnqsTtVvXxYy] [-b bind_address] [-c cipher_spec]
+           [-D [bind_address:]port] [-E log_file] [-e escape_char]
+           [-F configfile] [-I pkcs11] [-i identity_file]
+           [-J [user@]host[:port]] [-L address] [-l login_name] [-m mac_spec]
+           [-O ctl_cmd] [-o option] [-p port] [-Q query_option] [-R address]
+           [-S ctl_path] [-W host:port] [-w local_tun[:remote_tun]]
+           [user@]hostname [command]
+
+
+
+AUTOSSH帮助手册：
+autossh   
+usage: autossh [-V] [-M monitor_port[:echo_port]] [-f] [SSH_OPTIONS]
+
+    -M specifies monitor port. May be overridden by environment
+       variable AUTOSSH_PORT. 0 turns monitoring loop off.
+       Alternatively, a port for an echo service on the remote
+       machine may be specified. (Normally port 7.)
+    -f run in background (autossh handles this, and does not
+       pass it to ssh.)
+    -V print autossh version and exit.
+
+Environment variables are:
+    AUTOSSH_GATETIME    - how long must an ssh session be established
+                          before we decide it really was established
+                          (in seconds). Default is 30 seconds; use of -f
+                          flag sets this to 0.
+    AUTOSSH_LOGFILE     - file to log to (default is to use the syslog
+                          facility)
+    AUTOSSH_LOGLEVEL    - level of log verbosity
+    AUTOSSH_MAXLIFETIME - set the maximum time to live (seconds)
+    AUTOSSH_MAXSTART    - max times to restart (default is no limit)
+    AUTOSSH_MESSAGE     - message to append to echo string (max 64 bytes)
+    AUTOSSH_PATH        - path to ssh if not default
+    AUTOSSH_PIDFILE     - write pid to this file
+    AUTOSSH_POLL        - how often to check the connection (seconds)
+    AUTOSSH_FIRST_POLL  - time before first connection check (seconds)
+    AUTOSSH_PORT        - port to use for monitor connection
+    AUTOSSH_DEBUG       - turn logging to maximum verbosity and log to
+                          stderr
+
+
+```
+
 # B
 
 ## brew | homebrew  (Mac-Shell专用)
