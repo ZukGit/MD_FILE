@@ -1563,6 +1563,24 @@ Environment variables are:
 
 ```
 
+
+
+## axel
+```
+axel简介：
+Axel试图通过对一个文件使用多个连接来加速下载过程，类似于DownThemAll和其他著名程序。它还可以在一次下载中使用多个镜像。使用Axel，您可以更快地从Internet上获得文件。因此，Axel可以将下载速度提高到60%(根据某些测试，大约是60%)。Axel尽量轻巧，所以它可能作为一个wget克隆(和其他基于控制台的程序)在字节关键系统上有用。Axel支持HTTP、HTTPS、FTP和FTPS协议。
+
+axel是Linux下一个不错的HTTP/ftp高速下载工具。支持多线程下载、断点续传，且可以从多个地址或者从一个地址的多个连接来下载同一个文件。适合网速不给力时多线程下载提高下载速度。比如在国内VPS或服务器上下载lnmp一键安装包用Axel就比wget快。
+
+
+http://man.linuxde.net/axel
+
+
+
+【 Mac安装命令： 】brew install axel
+
+
+```
 # B
 
 ## brew | homebrew  (Mac-Shell专用)
