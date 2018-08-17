@@ -1583,6 +1583,69 @@ http://man.linuxde.net/axel
 ```
 # B
 
+
+##  bastet  俄罗斯方块游戏
+```
+
+
+
+
+```
+## bcal 二进制计算工具
+```
+安装命令：   brew install  bcal
+
+bcal -h          // bcal 帮助手册
+usage: bcal [-c N] [-f FORMAT] [-s bytes] [-m] [-b] [-d] [-h]
+            [expression] [N [unit]] 
+
+Storage expression calculator.
+
+positional arguments:
+ expression  evaluate storage arithmetic expression
+             +, -, *, / operators with decimal or hex operands
+             unit can be multiplied or divided by +ve integers
+             +, -, / work with two unit operands
+             Examples:
+               bcal "(5kb+2mb)/3"
+               bcal "5 tb / 12"
+               bcal "2.5mb*3"
+               bcal "(2giB * 2) / 2kib"
+ N [unit]    capacity in B/KiB/MiB/GiB/TiB/kB/MB/GB/TB
+             see https://wiki.ubuntu.com/UnitsPolicy
+             default unit is B (byte), case is ignored
+             N can be decimal or '0x' prefixed hex value
+
+optional arguments:
+ -c N        show +ve integer N in binary, decimal and hex
+ -f FORMAT   convert CHS to LBA or LBA to CHS
+             formats are hyphen-separated
+             LBA format:
+               starts with 'l':
+               lLBA-MAX_HEAD-MAX_SECTOR
+             CHS format:
+               starts with 'c':
+               cC-H-S-MAX_HEAD-MAX_SECTOR
+             omitted values are considered 0
+             FORMAT 'c-50--0x12-' denotes:
+               C = 0, H = 50, S = 0, MH = 0x12, MS = 0
+             FORMAT 'l50-0x12' denotes:
+               LBA = 50, MH = 0x12, MS = 0
+             default MAX_HEAD: 16, default MAX_SECTOR: 63
+ -s bytes    sector size [default 512]
+ -m          show minimal output (e.g. decimal bytes)
+ -b          list sizes of basic data types in bytes
+ -d          enable debug information and logs
+ -h          show this help and exit
+
+Version 1.9
+Copyright © 2016-2018 Arun Prakash Jana <engineerarun@gmail.com>
+License: GPLv3
+Webpage: https://github.com/jarun/bcal
+
+
+```
+
 ## brew | homebrew  (Mac-Shell专用)
 ```
 【官网】    https://brew.sh/index_zh-cn
