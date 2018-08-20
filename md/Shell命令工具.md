@@ -1587,15 +1587,34 @@ http://man.linuxde.net/axel
 ##  bastet  俄罗斯方块游戏
 ```
 
-
+安装命令(Mac)： brew install bastet 
+具体看截图：
 
 
 ```
+
+<img src="./image/shell_command_tool/bastet.png">
+
+
 ## bcal 二进制计算工具
 ```
+简介:  存储转换与表达式计算器
+根据SI标准，1kB=1000B（字节, Byte），而根据IEC标准 [2-4]  ，1kiB=1024B。
+Storage conversion and expression calculator
+https://github.com/jarun/bcal
+
+
+
 安装命令：   brew install  bcal
 
-bcal -h          // bcal 帮助手册
+
+```
+
+
+
+```
+// bcal 帮助手册
+bcal -h          
 usage: bcal [-c N] [-f FORMAT] [-s bytes] [-m] [-b] [-d] [-h]
             [expression] [N [unit]] 
 
@@ -1643,6 +1662,240 @@ Copyright © 2016-2018 Arun Prakash Jana <engineerarun@gmail.com>
 License: GPLv3
 Webpage: https://github.com/jarun/bcal
 
+
+```
+
+
+```
+【1】.计算存储单元表达式  存储相关的计算   bacl "表达式+-*/"
+使用示例：
+根据SI标准，1kB=1000B（字节, Byte），而根据IEC标准 [2-4]  ，1kiB=1024B。
+
+bcal "2.5mb*3"
+
+RESULT
+                                 7500000 B    【表示存储字节B 大小】
+            IEC 国际电工委员会
+            IEC standard (base 2)   【以二进制表示的存储字节大小】
+
+                        7.3242187500e+03 KiB
+                        7.1525573730e+00 MiB
+                        6.9849193096e-03 GiB
+                        6.8212102633e-06 TiB
+            国际单位制(法语:Système International d'Unités 符号:SI),
+            SI standard (base 10) 【以十进制表示的存储字节大小】
+
+                                    7500 kB
+                        7.5000000000e+00 MB
+                        7.5000000000e-03 GB
+                        7.5000000000e-06 TB
+
+ADDRESS
+ (d) 7500000        【digital 数字十进制表示形式】
+ (h) 0x7270e0       【hex 十六进制表示形式】
+
+##################
+bcal "5 tb / 12"
+WARNING: result truncated
+RESULT
+                            416666666666 B
+
+            IEC standard (base 2)
+
+                        4.0690104167e+08 KiB
+                        3.9736429850e+05 MiB
+                        3.8805107276e+02 GiB
+                        3.7895612574e-01 TiB
+
+            SI standard (base 10)
+
+                        4.1666666667e+08 kB
+                        4.1666666667e+05 MB
+                        4.1666666667e+02 GB
+                        4.1666666667e-01 TB
+
+ADDRESS
+ (d) 416666666666
+ (h) 0x610344c6aa
+[/Users/aaa]➜  ~
+
+
+
+```
+
+```
+
+【2】.转换存储容量到其他单位，并获得地址，LBA。
+
+ bcal 48769[十进制或者oxFF十六进制]  N[B/KiB/MiB/GiB/TiB/kB/MB/GB/TB]  默认单位为 B
+根据SI标准，1kB=1000B（字节, Byte），而根据IEC标准 [2-4]  ，1kiB=1024B。
+所以输入的 KiB/MiB/GiB/TiB  是以 1kiB=1024B 为标准计算的结果
+所以输入的 KB/MB/GB/TB  是以 1kB=1000B 为标准计算的结果  
+所以作为程序员 我要以 KiB/MiB/GiB/TiB   才能达到我的想法
+
+bcal 1KiB      // 以SI    1kB=1024B    为标准
+                                    1024 B
+
+            IEC standard (base 2)
+
+                                       1 KiB
+                        9.7656250000e-04 MiB
+                        9.5367431641e-07 GiB
+                        9.3132257462e-10 TiB
+
+            SI standard (base 10)
+
+                        1.0240000000e+00 kB
+                        1.0240000000e-03 MB
+                        1.0240000000e-06 GB
+                        1.0240000000e-09 TB
+
+ADDRESS
+ (d) 1024
+ (h) 0x400
+
+LBA:OFFSET (sector size: 0x200)
+ (d) 2:0
+ (h) 0x2:0x0
+
+############
+bcal 1KB         // 以SI    1kB=1000B    为标准
+                                    1000 B
+
+            IEC standard (base 2)
+
+                        9.7656250000e-01 KiB
+                        9.5367431641e-04 MiB
+                        9.3132257462e-07 GiB
+                        9.0949470177e-10 TiB
+
+            SI standard (base 10)
+
+                                       1 kB
+                        1.0000000000e-03 MB
+                        1.0000000000e-06 GB
+                        1.0000000000e-09 TB
+
+ADDRESS
+ (d) 1000
+ (h) 0x3e8
+
+LBA:OFFSET (sector size: 0x200)
+ (d) 1:488
+ (h) 0x1:0x1e8
+ 
+ 
+ 
+############
+bcal 1024KiB   
+                                 1048576 B
+
+            IEC standard (base 2)
+
+                                    1024 KiB
+                                       1 MiB  【1M】
+                        9.7656250000e-04 GiB
+                        9.5367431641e-07 TiB
+
+            SI standard (base 10)
+
+                        1.0485760000e+03 kB
+                        1.0485760000e+00 MB
+                        1.0485760000e-03 GB
+                        1.0485760000e-06 TB
+
+ADDRESS
+ (d) 1048576    【十进制地址  十进制数值】
+ (h) 0x100000    【十六进制地址  十六进制数值】
+
+LBA:OFFSET (sector size: 0x200)   【偏移地址 】
+ (d) 2048:0
+ (h) 0x800:0x0
+
+
+```
+
+
+
+```
+
+【3】. bcal -c   1231[十进制  ox十六进制 0b二进制 ] 显示转换结果
+
+bcal -c 20140115
+BASE CONVERSION
+ (b) 0b1001100110101000001010011
+ (d) 20140115
+ (h) 0x1335053
+
+
+bcal -c 0b1001100110101000001010011
+BASE CONVERSION
+ (b) 0b1001100110101000001010011
+ (d) 20140115
+ (h) 0x1335053
+
+
+
+bcal -c 0x1335053
+BASE CONVERSION
+ (b) 0b1001100110101000001010011
+ (d) 20140115
+ (h) 0x1335053
+
+```
+
+```
+【4】硬盘寻址模式  LBA  和   CHS 的相互转换
+
+
+LBA  逻辑寻址模式：LBA(Logical Block Addressing)  在LBA地址中，地址不再表示实际硬盘的实际物理地址（柱面、磁头和扇区）。LBA编址方式将CHS这种三维寻址方式转变为一维的线性寻址，它把硬盘所有的物理扇区的C/H/S编号通过一定的规则转变为一线性的编号，系统效率得到大大提高，避免了烦琐的磁头/柱面/扇区的寻址方式。在访问硬盘时，由硬盘控制器再将这种逻辑地址转换为实际硬盘的物理地址
+
+
+CHS（也称3D）物理寻址 ，对早期的磁盘有效 但是支持的硬盘容量有限 最大 8.4GB
+https://blog.csdn.net/zztan/article/details/70861021
+
+
+逻辑扇区号LBA的公式：
+
+LBA(逻辑扇区号)=磁头数 × 每磁道扇区数 × 当前所在柱面号 + 每磁道扇区数 × 当前所在磁头号 + 当前所在扇区号 – 1
+
+
+例如：CHS=0/0/1，则根据公式LBA=255 × 63 × 0 + 63 × 0 + 1 – 1= 0
+也就是说物理0柱面0磁头1扇区，是逻辑0扇区。
+也就是说  LBA就是扇区的编号，  按照磁道  柱面 和 磁头 从小到大的顺序编号
+
+
+
+
+
+ LBA ==》 CHS    【LBA的数值以  'l'为开头 】
+ bcal -f l500
+LBA2CHS
+  LBA:500  MAX_HEAD:16  MAX_SECTOR:63
+  CHS: (d) 0 7 60, (h) 0x0 0x7 0x3c   既 CHS=0/7/60  【柱面/磁头/扇区】
+  
+bcal -f l0x600-18-0x7e
+LBA2CHS
+  LBA:1536  MAX_HEAD:18  MAX_SECTOR:126
+  CHS: (d) 0 12 25, (h) 0x0 0xc 0x19  既 CHS=0/12/25  【柱面/磁头/扇区】
+  
+  
+  
+  
+  CHS  ==》LBA     CHS地址 以 ‘c’  字符c开头
+
+~ bcal -f c10-10-10
+CHS2LBA
+  C:10  H:10  S:10  MAX_HEAD:16  MAX_SECTOR:63
+  LBA: (d) 10719, (h) 0x29df             既 LBA逻辑地址 = 10719
+  
+  
+~ bcal -f c0x10-10-2-0x12
+CHS2LBA
+  C:16  H:10  S:2  MAX_HEAD:18  MAX_SECTOR:63
+  LBA: (d) 18775, (h) 0x4957           既 LBA逻辑地址 = 18775
+  
+  
 
 ```
 
