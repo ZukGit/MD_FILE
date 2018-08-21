@@ -1899,6 +1899,55 @@ CHS2LBA
 
 ```
 
+##   bettercap  中间人攻击软件框架 内网神器 黑客工具
+
+
+##  bitcoin   P2P支付网络
+```
+[/Users/aaa/Desktop/code_place/MD_GIT/MD_FILE]➜  MD_FILE brew info  bitcoin
+bitcoin: stable 0.16.2 (bottled), HEAD
+Decentralized, peer to peer payment network
+https://bitcoin.org/
+
+```
+
+
+##  bittwiste    数据包编辑工具bittwiste
+
+
+
+## bmon：Linux 下一个强大的网络带宽监视和调试工具
+
+
+## boxes   一个对字符串进行包装的工具  输出字符图像
+
+
+##BTFS (bittorrent filesystem) 比特流文件系统可实现边播边下载功能
+
+
+##  bwm-ng 带宽监控器
+```
+bwm-ng（下一代带宽监控器）是另一款非常简单的实时网络负载监控工具，可以报告摘要信息，显示进出系统上所有可用网络接口的不同数据的传输速度。
+
+```
+
+
+
+
+
+
+
+
+## Byobu   linux下的终端分屏神器
+```
+
+
+
+```
+
+
+
+
 ## brew | homebrew  (Mac-Shell专用)
 ```
 【官网】    https://brew.sh/index_zh-cn
@@ -1924,6 +1973,7 @@ brew  config        // 显示 homebrew的配置
 brew  home         // 进入 homebrew官网
 
 ```
+
 
 
 ```
@@ -3288,9 +3338,97 @@ zxing-cpp                   zyre                              zzuf              
 
 ```
 # C
+
+##  caffe   深度学习框架
+
+## cowsay  显示动物画面
+
+## ctop  查看进程情况的工具
+<img src="https://github.com/bcicen/ctop/raw/master/_docs/img/grid.gif"/>
 # D
+
+## dark-mode Mac黑暗主题命令
+```
+brew install dark-mode
+
+
+
+dark-mode --help
+
+  Usage
+    $ dark-mode [command]
+
+  Commands
+    <none>  Toggle dark mode
+    on      Enable dark mode
+    off     Disable dark mode
+    status  Dark mode status
+
+
+dark-mode  黑暗主题切换
+```
+
+
+## dex2jar
+
+
+## dhcpdump
+```
+Monitor DHCP Traffic For Debugging Purpose
+
+https://www.cyberciti.biz/faq/linux-unix-dhcpdump-monitor-dhcp-traffic/
+
+```
+
+## docker
+```
+Pack, ship and run any application as a lightweight container
+以轻量级容器的形式打包、装载和运行任何应用程序。
+
+
+
+```
+
+## docker-completion
+```
+
+
+```
+
+## docx2txt
+```
+Converts Microsoft Office docx documents to equivalent text documents
+
+
+```
+
+
 # E
+
+## exa
+```
+exa是ls命令的替换  能显示更人性化的数据
+
+
+exa -lh
+
+```
+<img src="./image/shell_command_tool/exa.png">
+
 # F
+
+## fcrackzip
+```
+破解zip密码的工具包
+
+```
+
+## fd
+```
+一个更友好的查找文件工具 find
+
+
+```
 # G
 ## Git命令
 ```
@@ -3304,6 +3442,18 @@ git config --list
 
 
 ```
+
+
+## Glances
+```
+
+
+```
+<img src="https://raw.githubusercontent.com/nicolargo/glances/develop/docs/_static/glances-summary.png">
+
+ 
+
+## grep
 
 # H
 # I
