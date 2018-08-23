@@ -158,6 +158,149 @@ CPU、GPU、内存、硬盘、网络、温度、电池以及系统时间等，�
 ```
 
 
+## ITerm2 
+```
+ITerm2:  ITerm2是一个可以在一个窗口打开多个终端的软件，可以集成zsh等。
+
+
+配置iterm2指导网站:   https://www.cnblogs.com/xishuai/p/mac-iterm2.html
+
+
+Iterm2下载网络： 
+https://www.iterm2.com/downloads.html
+
+
+brew命令安装：
+brew cask install iterm2
+
+
+```
+
+
+```
+Iterm2的设置操作：
+
+Command +  ,          // 打开Preference 设置
+Command +   enter    // 全屏来回切换
+Command +   d       // 左右分屏
+Shift + Command +   d       //上下分屏 
+Command +  ;|:     // 显示当前页面输入的历史命令
+Command + K   // 清屏
+Command + h    // 自动选提示
+Command + f   // 在当前终端查找
+Command + w    // 关闭当前的终端   command + d 打开的终端从此命令关闭 
+
+```
+
+
+```
+【1】隐藏滚动条
+Preferences - Appearance - Window - Hide Scrollbar  【勾选】
+
+
+【2】Tab列表设置
+#######################
+Preferences - Appearance - Tab - show tab bar even when there is only one tab 【一个窗口有多个终端，隐藏新建一个窗口的Tab】
+
+Preferences - Appearance - Tab -  Show tab numbers【显示窗口的索引】
+
+
+Preferences - Appearance - Tab -  Show tab close buttons【是否在Tab中 显示 关闭当前窗口的按钮】
+
+
+Preferences - Appearance - Tab -  Show tab close buttons【是否在全屏下  显示tab窗口栏】
+
+
+Preferences - Appearance - Tab - Stretch tabs to fill bar 【是否让 当前的tab窗口栏中的tab  占据所有的tab空间】
+
+#######################
+
+
+
+
+【3】是否显示隐藏终端Terminal的标题栏
+Preferences - Appearance - Panes - Show per-pane title bar with split panes 【勾选】
+
+
+【4】 指定当前Shell打开的路径为指定的路径
+Preferences - Profiles - Work Directory — Directory
+ /Users/aaa
+ 
+ 
+ 【5】 指定当前Shell打开的路径为上次关闭时的路径 复用路径
+ Preferences - Profiles - Work Directory —Reuse previous session's directory
+ 
+ 【6】 颜色设置
+#######################
+文字前景颜色设置 文字本身颜色
+ Preferences - Profiles - Color -  Basic Colors -
+ Foreground     00ffff    蓝靛色
+
+选中后背景颜色
+Preferences - Profiles - Color -  Basic Colors-
+ Selection      dd3344    酒红色
+ 
+
+shell背景颜色
+ Preferences - Profiles - Color -  Basic Colors -
+ Background     000000    黑色
+
+
+选中后文字的前景颜色
+Preferences - Profiles - Color -  Basic Colors-
+ Selected Text   000000    黑色
+
+
+标题Tab颜色
+Preferences - Profiles - Color -  Basic Colors-
+ Tab Color  88ccff  淡蓝色
+
+
+
+光标颜色
+Preferences - Profiles - Color - Cursor Color -
+ Cursor    00ff00     绿色
+
+
+设置光标所在行提示
+Preferences - Profiles - Color - Cursor Color -
+ Cursor Guide 【勾选】
+
+
+主题颜色  Color Preset
+#######################
+
+
+【7】 光标显示的形式
+Preferences - Profiles - Text - Cursor
+Underline 下划线
+Vertical Bar  竖标
+Box   箱型
+
+
+【8】字体大小 字体
+Preferences - Profiles - Text - Front   18pt 
+字体  Monaco
+
+
+【9】窗口背景透明度
+Preferences - Profiles - Window - Window Appearance
+Transparency     //  背景透明度   20%
+Blur             // 高斯模糊度    100%
+
+
+
+【9】设置背景图片
+Preferences - Profiles - Window - Background Image
+
+
+```
+
+```
+
+
+```
+<img src="./image/mac_software/iterm.png">
 # J
 # K
 # L
@@ -308,6 +451,13 @@ pkg文件彻底删除工具，可以帮助我们一键彻底删除安装在我�
 
 
 # V
+
+## VirtualBox VMs
+```
+VirtualBox VMs   // 在shell中打开VM
+
+
+```
 # W
 # X
 

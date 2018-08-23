@@ -3456,7 +3456,38 @@ git config --list
 ## grep
 
 # H
+
+##  hh
+```
+
+
+Bash and zsh shell history suggest box - easily view, navigate, search and manage your command history.
+
+```
+<img src="https://camo.githubusercontent.com/4c12b73d5b00e0716ded4366e7c84178122ce9fe/687474703a2f2f6d652e6d696e64666f726765722e636f6d2f70726f6a656374732f696d616765732f68682d616e696d617465642d30312e676966"/>
+
+
+## htop
+```
+
+```
+
+<img src="https://hisham.hm/htop/htop-2.0.png"/>
+
+
+## httpflow
+```
+
+
+```
+
+
+
 # I
+
+## ifstat
+
+
 ## iftop (Mac/Linux 命令)
 ```
 iftop是一款实时流量监控工具,监控TCP/IP连接等,能查看得到连接到的IP地址信息
@@ -3475,11 +3506,34 @@ rates：分别表示过去 2s 10s 40s 的平均流量
 <img src="./image/shell_command_tool/if.png">
 <img src="./image/shell_command_tool/if1.png">
 
+## ipcalc
+ 
+## ipinfo
+```
+http://kyberdigi.cz/projects/ipinfo/
 
+```
+##  iperf  && iperf3
 # J
+
+## jp2a
+
+
+ 
 # K
 # L
+
+## lolcat
+
 # M
+
+## m-cli
+```
+
+
+```
+
+
 # N
 
 ## ncdu命令 （Linux Mac）
@@ -3492,6 +3546,14 @@ ncdu 命令可以用来查看和分析 Linux/Mac 中各目录对磁盘空间占�
 <img src="./image/shell_command_tool/3.png">
 
 # O
+
+
+## osxutils
+```
+
+```
+
+
 # P
 
 ## PS宏   Shell脚本提示符
@@ -3511,6 +3573,17 @@ PS1="[XXX的MacPro] \t:\w\$"       //  【root 权限下才能正常显示】
 
 ```
 
+
+## pandoc
+```
+https://pandoc.org/
+
+```
+<img src="./image/shell_command_tool/pandoc.png">
+
+
+## piknik
+
 # Q
 # R
 # S
@@ -3521,7 +3594,67 @@ PS1="[XXX的MacPro] \t:\w\$"       //  【root 权限下才能正常显示】
 source .bashrc       //立即更新环境变量 
 
 ```
+
+
+
+## scrcpy
+```
+Display and control your Android device
+
+```
+
+
+## screenFetch
+
+## sjk
+```
+	Swiss Java Knife
+
+```
+
+##  subnetcalc
+```
+https://www.uni-due.de/~be0001/subnetcalc/
+
+```
 # T
+
+## tcpdump
+```
+
+
+```
+
+
+##  tcpflow
+
+## tcpkali
+
+## tcptrack
+```
+tcptrack - Monitor TCP connections on the network
+
+
+```
+
+
+## terminator
+```
+多终端一个窗口
+```
+<img src="http://1.bp.blogspot.com/-pBBJoLyOUbs/Ti9BfXqRu7I/AAAAAAAADUk/Uw-4Zy9pAQU/s320/2008-08-17-terminator.png" />
+
+
+## thrulay
+
+
+
+## tor
+
+
+## tree
+
+
 # U
 # V
 # W
@@ -3531,6 +3664,13 @@ source .bashrc       //立即更新环境变量
 ```
 查看到当前登录系统的用户是谁
 ```
+
+## wifi-password
+
+
+## wine
+
+
 # X
 # Y
 ## yum命令 （Linux-Shell）
@@ -3554,3 +3694,24 @@ xxx + Tab  //   可显示可能的命令
 窗口 》 将窗口存储为组   【该功能可实现打开指定路径的shell】
 
 ```
+
+## zsh-history-substring-search
+```
+
+
+```
+
+## zsh-lovers
+
+
+##  zsh-syntax-highlighting
+
+## zsh-navigation-tools
+
+## zsh-git-prompt
+
+
+## zsh-completions
+
+
+## zsh-autosuggestions
