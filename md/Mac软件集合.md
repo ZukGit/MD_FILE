@@ -294,12 +294,14 @@ Blur             // 高斯模糊度    100%
 Preferences - Profiles - Window - Background Image
 
 
-```
+【10】 保存配置文件JSON
+Preferences - Profiles - Profiles Name -
+ Default -Other Action  -- Copy Profile as Json
+ // 然后 就复制JSON配置文件到剪切板
 
 ```
 
 
-```
 <img src="./image/mac_software/iterm.png">
 # J
 # K
