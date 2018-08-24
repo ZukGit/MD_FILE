@@ -2037,7 +2037,7 @@ arp.spoof (not running): Keep spoofing selected hosts on the network.
 
 ble.recon (not running): Bluetooth Low Energy devices discovery.
 
-   ble.recon on : Start Bluetooth Low Energy devices discovery.
+   ble.recon on : Start Bluetooth Low Energy devices discovery.    【This component is not supported on this OS】
   ble.recon off : Stop Bluetooth Low Energy devices discovery.
   
   
@@ -2102,7 +2102,7 @@ events.stream (running): Print events as a continuous stream.
 
 gps (not running): A module talking with GPS hardware on a serial interface.
 
-    gps on : Start acquiring from the GPS hardware.
+    gps on : Start acquiring from the GPS hardware.  【open /dev/ttyUSB0: no such file or directory】
    gps off : Stop acquiring from the GPS hardware.
   gps.show : Show the last coordinates returned by the GPS hardware.
 
@@ -2209,7 +2209,7 @@ mac.changer (not running): Change active interface mac address.
 
 mysql.server (not running): A simple Rogue MySQL server, to be used to exploit LOCAL INFILE and read arbitrary files from the client.
 
-   mysql.server on : Start mysql server.
+   mysql.server on : Start mysql server. 【listen tcp 192.168.73.241:3306: bind: can't assign requested address】
   mysql.server off : Stop mysql server.
 
   Parameters
@@ -2387,30 +2387,934 @@ wol (not running): A module to send Wake On LAN packets in broadcast or to a spe
      
 ```
 
+```
+实践应用： 
+未完待续
 
+
+
+
+```
 
 
 ##  bitcoin   P2P支付网络
 ```
-[/Users/aaa/Desktop/code_place/MD_GIT/MD_FILE]➜  MD_FILE brew info  bitcoin
-bitcoin: stable 0.16.2 (bottled), HEAD
-Decentralized, peer to peer payment network
-https://bitcoin.org/
+安装命令( Mac ):  brew info  bitcoin
+官网：  https://bitcoin.org/
 
 ```
 
 
-##  bittwiste    数据包编辑工具bittwiste
+##  bittwist    数据包编辑工具 bittwist
+```
+bittwiste 简介 : bittwiste是数据包重放工具bittwist的一个工具。该工具可以编辑修改PCAP抓包文件。
+该工具提供数据包过滤功能，如根据范围和时间过滤。同时，该工具支持数据包的截断，并添加数据载荷。
+对于ETH、ARP、IP、ICMP、TCP和UDP类型数据包，渗透测试人员还可以修改其对应的包头。pcap 编辑工具
+
+
+安装命令：  brew install bittwist
 
 
 
-## bmon：Linux 下一个强大的网络带宽监视和调试工具
+```
+
+
+```
+【  bittwist 帮助手册  】
+
+bittwist -h
+bittwist version 2.0
+libpcap version 1.8.1 -- Apple version 67.60.1
+Usage: bittwist [-d] [-v] [-i interface] [-s length] [-l loop] [-c count]
+                [-m speed] [-r rate] [-p sleep] [-h] pcap-file(s)
+
+Options:
+ -d             Print a list of network interfaces available.
+ -v             Print timestamp for each packet.
+ -vv            Print timestamp and hex data for each packet.
+ -i interface   Send 'pcap-file(s)' out onto the network through 'interface'.
+ -s length      Packet length to send. Set 'length' to:
+                     0 to send the actual packet length. This is the default.
+                    -1 to send the captured length.
+                or any other value from 14 to 1514.
+ -l loop        Send 'pcap-file(s)' out onto the network for 'loop' times.
+                Set 'loop' to 0 to send 'pcap-file(s)' until stopped.
+                To stop, type Control-C.
+ -c count       Send up to 'count' packets.
+                Default is to send all packets from 'pcap-file(s)'.
+ -m speed       Set interval multiplier to 'speed'.
+                Set 'speed' to 0 or less to send the next packet immediately.
+                Minimum positive value for 'speed' is 0.000001.
+ -r rate        Limit the sending to 'rate' Mbps.
+                Value for 'rate' must be between 1 to 10000.
+                This option is meant to limit the maximum packet throughput.
+                If you want to send packets at line rate of 100Mbps,
+                try -m 0 -r 100
+ -p sleep       Set interval to 'sleep' (in seconds), ignoring the actual
+                interval.
+                Value for 'sleep' must be between 1 to 2146.
+ -h             Print version information and usage.
+bittwist -d
+1. en0
+2. bridge0
+3. p2p0
+4. awdl0
+5. utun0
+6. en1
+7. utun1
+8. en2
+9. lo0
+10. gif0
+11. stf0
+
+
+
+```
+
+```
+【  bittwiste 帮助手册  】
+帮助手册： bittwiste  和  bittwist
+BITTWISTE(1)							  BITTWISTE(1)
+NAME
+       bittwiste -- pcap capture file editor
+
+SYNOPSIS
+       bittwiste [ -I input ] [ -O output ] [ -L layer ] [ -X payload ]
+		 [ -C ] [ -M linktype ] [ -D offset ] [ -R range ]
+		 [ -S timeframe ] [ -T header ]
+		 [ header-specific-options ] [ -h ]
+
+DESCRIPTION
+       This document describes the bittwiste program, the pcap(3) capture file
+       editor. Bittwiste is designed to work only with	Ethernet  frame,  e.g.
+       link  type  DLT_EN10MB  in  pcap(3),  with a maximum frame size of 1514
+       bytes which is equivalent to a MTU of 1500 bytes, 14 bytes for Ethernet
+       header.
+
+       Bittwiste  can  currently  edit	Ethernet,  ARP, IP, ICMP, TCP, and UDP
+       headers. If run with the -X flag, you can append your own payload after
+       any  of	these  headers;  specified using the -L and -T flag. Bittwiste
+       will, if not run with the -C flag, recalculate the  checksums  for  IP,
+       ICMP,  TCP,  and  UDP  packets, except for the last fragment of a frag-
+       mented IP datagram; bittwiste does not currently support checksum  cor-
+       rection	for the last fragment of a fragmented IP datagram. While pars-
+       ing the packets in a trace file, bittwiste will	skip,  i.e.  write  to
+       output  file  as  is, any truncated packet, for example, an ICMP packet
+       with a captured length of 25 bytes (we need at least 28 bytes; 14 bytes
+       for  Ethernet  header,  minimum 20 bytes for IP header, and 4 bytes for
+       ICMP header) does not give enough information on its  ICMP  header  for
+       bittwiste  to  read and modify it. In this case, you can utilize the -L
+       and -T flag to copy the original packet up to its IP header and	append
+       your  customized  ICMP header and data to the packet using the -X flag.
+       When specifying payload that covers the ICMP, TCP or UDP header and its
+       data, you can use zeros, e.g. 0000 for 2 bytes of zeros, for the header
+       checksum which is then corrected automatically by bittwiste.
+
+       In order to simplify the way options are specified, you can  only  edit
+       packets	of  a  specific  type supplied to the -T flag per execution of
+       bittwiste on a trace file. In addition, the -T flag  must  appear  last
+       among  the general options which are the -I, -O, -L, -X, -C, -M, -D, -R
+       and -S flag.
+
+OPTIONS
+       -I input
+	      Input pcap based trace file.
+
+       -O output
+	      Output trace file.
+
+       -L layer
+	      Copy up to the specified layer and discard the  remaining  data.
+	      Value for layer must be either 2, 3 or 4 where 2 for Ethernet, 3
+	      for ARP or IP, and 4 for ICMP, TCP or UDP.
+
+       -X payload
+	      Append payload in hex digits to the end of each packet.
+	      Example: -X 0302aad1
+	      -X flag is ignored if -L and -T flag are not specified.
+
+       -C     Specify this flag to disable checksum correction. Checksum  cor-
+	      rection  is applicable for non-fragmented IP, ICMP, TCP, and UDP
+	      packets only.
+
+       -M linktype
+	      Replace the linktype stored in the pcap file header.  Typically,
+	      value for linktype is 1 for Ethernet.
+	      Example: -M 12 (for raw IP), -M 51 (for PPPoE)
+
+	      For the complete list, see:
+	      http://www.tcpdump.org/linktypes.html
+
+       -D offset
+	      Delete the specified byte offset from each packet.
+	      First byte (starting from link layer header) starts from 1.
+	      -L, -X, -C and -T flag are ignored if -D flag is specified.
+	      Example: -D 15-40, -D 10 or -D 18-9999
+
+       -R range
+	      Save only the specified range of packets.
+	      Example: -R 5-21 or -R 9
+
+       -S timeframe
+	      Save  only the packets within the specified timeframe with up to
+	      one-second resolution using DD/MM/YYYY,HH:MM:SS  as  the format
+	      for start and end time in timeframe.
+	      Example: -S 22/10/2006,21:47:35-24/10/2006,13:16:05
+	      -S flag is evaluated after -R flag.
+
+       -T header
+	      Edit  only  the  specified  header. Possible keywords for header
+	      are, eth, arp, ip, icmp, tcp, or udp. -T flag must  appear  last
+	      among the general options.
+
+       -h     Print version information and usage.
+
+         header-specific-options
+	      Each  packet  that  matches  the type supplied to the -T flag is
+	      modified based on the options described below:
+
+	      Options for eth (RFC 894):
+
+	      -d dmac or omac,nmac
+		     Destination MAC address. Example: -d 00:08:55:64:65:6a
+		     If omac and nmac are specified instead, all occurences of
+		     omac  in  the  destination  MAC  address  field  will  be
+		     replaced with nmac.
+
+	      -s smac or omac,nmac
+		     Source MAC address. Example: -s 00:13:20:3e:ab:cf
+		     If omac and nmac are specified instead, all occurences of
+		     omac  in  the  source  MAC address field will be replaced
+		     with nmac.
+
+	      -t type
+		     EtherType. Possible keywords for type  are,  ip  and  arp
+		     only.
+
+	      Options for arp (RFC 826):
+
+	      -o opcode
+		     Operation	code  in integer value between 0 to 65535. For
+		     example, you can set opcode to 1 for ARP request,2  for ARP reply.
+
+	      -s smac or omac,nmac
+		     Sender MAC address. Example: -s 00:13:20:3e:ab:cf
+		     If omac and nmac are specified instead, all occurences of
+		     omac in the sender MAC address  field  will  be  replaced
+		     with nmac.
+
+	      -p sip or oip,nip
+		     Sender IP address. Example: -p 192.168.0.1
+		     If  oip  and nip are specified instead, all occurences of
+		     oip in the sender IP address field will be replaced  with
+		     nip.
+
+	      -t tmac or omac,nmac
+		     Target MAC address. Example: -t 00:08:55:64:65:6a
+		     If omac and nmac are specified instead, all occurences of
+		     omac in the target MAC address  field  will  be  replaced
+		     with nmac.
+
+	      -q tip or oip,nip
+		     Target IP address. Example: -q 192.168.0.2
+		     If  oip  and nip are specified instead, all occurences of
+		     oip in the target IP address field will be replaced  with
+		     nip.
+
+	      Options for ip (RFC 791): 【IP的后置参数】
+
+	      -i id
+		     Identification in integer value between 0 to 65535.
+
+	      -f flags
+		     Control flags. Possible characters for flags are:
+
+		     - : remove all flags
+		     r : set the reserved flag
+		     d : set the don't fragment flag
+		     m : set the more fragment flag
+
+		     Example: -f d
+		     If  any of the flags is specified, all original flags are
+		     removed automatically.
+
+	      -o offset
+		     Fragment offset in integer value between 0 to 7770. Value
+		     for  offset represents the number of 64-bit segments con-
+		     tained in earlier fragments which must  not  exceed  7770
+		     (62160 bytes).
+
+	      -t ttl
+		     Time to live in integer value between 0 to 255 (millisec-
+		     onds).
+
+	      -p proto
+		     Protocol number in integer value between 0 to  255.  Some
+		     common protocol numbers are:
+
+		     1	: Internet Control Message Protocol (ICMP)
+		     6	: Transmission Control Protocol (TCP)
+		     17 : User Datagram Protocol (UDP)
+
+		     For the complete list, see:
+		     http://www.iana.org/assignments/protocol-numbers
+
+	      -s sip or oip,nip
+		     Source IP address. Example: -s 192.168.0.1
+		     If  oip  and nip are specified instead, all occurences of
+		     oip in the source IP address field will be replaced  with
+		     nip.
+
+	      -d dip or oip,nip
+		     Destination IP address. Example: -d 192.168.0.2
+		     If  oip  and nip are specified instead, all occurences of
+		     oip in the destination IP address field will be  replaced
+		     with nip.
+
+	      Options for icmp (RFC 792):  【 icmp 的后置参数】
+
+	      -t type
+		     Type  of  message in integer value between 0 to 255. Some
+		     common messages are:
+
+		     0	: Echo reply
+		     3	: Destination unreachable
+		     8	: Echo
+		     11 : Time exceeded
+
+		     For the complete list, see:
+		     http://www.iana.org/assignments/icmp-parameters
+
+	      -c code
+		     Error code for this ICMP message in integer value between
+		     0 to 255. For example, code for time exceeded message may
+		     have one of the following values:
+
+		     0 : transit TTL exceeded
+		     1 : reassembly TTL exceeded
+
+		     For the complete list, see:
+		     http://www.iana.org/assignments/icmp-parameters
+
+	      Options for tcp (RFC 793):  【 tcp 的后置参数】
+
+	      -s sport or op,np
+		     Source port number in integer value between 0  to  65535.
+		     If op and np are specified instead, all occurrences of op
+		     in the source port field will be replaced with np.
+
+	      -d dport or op,np
+		     Destination port number in integer  value  between  0  to
+		     65535.  If  op  and  np are specified instead, all occur-
+		     rences of op  in  the  destination  port  field  will  be
+		     replaced with np.
+
+	      -q seq
+		     Sequence number in integer value between 0 to 4294967295.
+		     If SYN control bit is set, e.g. character s  is  supplied
+		     to  the -f flag, seq represents the initial sequence num-
+		     ber (ISN) and the first data byte is ISN + 1.
+
+	      -a ack
+		     Acknowledgment number  in	integer  value between  0  to
+		     4294967295.  If  ACK control bit is set, e.g. character a
+		     is supplied to the -f flag, ack represents the  value  of
+		     the  next	sequence number that the receiver is expecting
+		     to receive.
+
+	      -f flags
+		     Control flags. Possible characters for flags are:
+
+		     - : remove all flags
+		     u : urgent pointer field is significant
+		     a : acknowledgment field is significant
+		     p : push function
+		     r : resets the connection
+		     s : synchronizes the sequence numbers
+		     f : no more data from sender
+
+		     Example: -f s
+		     If any of the flags is specified, all original flags  are
+		     removed automatically.
+
+	      -w win
+		     Window  size  in integer value between 0 to 65535. If ACK
+		     control bit is set, e.g. character a is supplied  to  the
+		     -f  flag, win represents the number of data bytes, begin-
+		     ning with the one indicated in the acknowledgment number
+		     field that the receiver is willing to accept.
+
+	      -u urg
+		     Urgent  pointer  in  integer value between 0 to 65535. If
+		     URG control bit is set, e.g. character u is  supplied  to
+		     the  -f flag, urg represents a pointer that points to the
+		     first data byte following the urgent data.
+
+	      Options for udp (RFC 768):   【 udp 的后置参数】
+
+	      -s sport or op,np
+		     Source port number in integer value between 0  to  65535.
+		     If op and np are specified instead, all occurrences of op
+		     in the source port field will be replaced with np.
+
+	      -d dport or op,np
+		     Destination port number in integer  value between  0  to
+		     65535.  If  op  and  np are specified instead, all occur-
+		     rences of op  in  the  destination  port  field  will  be
+		     replaced with np.
+
+SEE ALSO
+       bittwist(1), pcap(3), tcpdump(1)
+
+
+
+
+
+
+
+
+```
+
+
+```
+
+# 将目的ip从192.168.1.3修改为10.10.10.10
+bittwiste -I in.pcap -O out.pcap -T ip -d 192.168.1.3,10.10.10.10
+ 
+
+
+#  将一个 数据包生成多个数据包，并将所有的数据包的192.168.2.1 改为 192.168.2.X  
+for((i=1;i<251;i++))
+do
+bittwiste -I  test.pcap -O test-${i}.pcap -T ip -s 192.168.2.1,192.168.2.${i} -d 192.168.2.1,192.168.2.${i}
+done
+
+
+
+```
+
+## bmon   Linux 下一个强大的网络带宽监视和调试工具
+```
+bmon  : Linux 下一个强大的网络带宽监视和调试工具
+
+安装命令：     brew  install bmon 
+
+功能按键： 
+d
+i
+↑
+↓
+```
+<img src="./image/shell_command_tool/bmon.png">
+
 
 
 ## boxes   一个对字符串进行包装的工具  输出字符图像
 
 
-##BTFS (bittorrent filesystem) 比特流文件系统可实现边播边下载功能
+```
+boxes: boxes是对字符串进行外围的填充扩满 使得好看
+
+
+安装命令：  brew install boxes
+
+```
+
+```
+所有样式：    https://boxes.thomasjensen.com/box-designs.txt
+
+ echo hello | boxes
+/*********/
+/* hello */
+/*********/
+
+
+echo Hello World!  | boxes -d ada-box
+------------------
+-- Hello World! --
+------------------
+
+
+
+echo Hello World!  | boxes -d ada-cmt
+-- Hello World!
+
+
+echo Hello World!  | boxes -d boxquote
+,---- [  ]
+| Hello World!
+`----
+
+
+echo Hello World!  | boxes -d boy
+        .-"""-.
+       / .===. \
+       \/ 6 6 \/
+       ( \___/ )
+  _ooo__\_____/______
+ /                   \
+| Hello World!        |
+ \_______________ooo_/
+        |  |  |
+        |_ | _|
+        |  |  |
+        |__|__|
+        /-'Y'-\
+       (__/ \__)
+       
+
+
+echo Hello World!  | boxes -d c
+/****************/
+/* Hello World! */
+/****************/
+
+
+
+
+echo Hello World!  | boxes -d c-cmt
+/* Hello World! */
+
+
+
+
+echo Hello World!  | boxes -d c-cmt2
+/*
+ *  Hello World!
+ */
+ 
+ 
+ 
+echo Hello World!  | boxes -d caml
+(****************)
+(* Hello World! *)
+(****************)
+
+
+echo Hello World!  | boxes -d capgirl
+         .-"`*`"-.
+        /_______; \
+       (_________)\|
+       / / a a \ \(_)
+      / ( \___/ ) \
+  _ooo\__\_____/__/____
+ /                     \
+| Hello World!          |
+ \_________________ooo_/
+      /           \
+     /:.:.:.:.:.:.:\
+         |  |  |
+         \==|==/
+         /-'Y'-\
+        (__/ \__)
+        
+        
+ echo Hello World! | boxes -d cc
+ /****************
+ * Hello World! *
+ ****************/
+ 
+ 
+ echo Hello World! | boxes -d  ccel
+ ///////////////
+Hello World! //
+///////////////
+
+
+echo Hello World! | boxes -d  columns
+ __^__              __^__
+( ___ )------------( ___ )
+ | / | Hello World! | \ |
+ |___|              |___|
+(_____)------------(_____)
+
+
+
+
+echo Hello World! | boxes -d diamonds -a hcvc
+       /\          /\          /\
+    /\//\\/\    /\//\\/\    /\//\\/\
+ /\//\\\///\\/\//\\\///\\/\//\\\///\\/\
+//\\\//\/\\///\\\//\/\\///\\\//\/\\///\\
+\\//\/                            \/\\//
+ \/                                  \/
+ /\                                  /\
+//\\          Hello World!          //\\
+\\//                                \\//
+ \/                                  \/
+ /\                                  /\
+//\\/\                            /\//\\
+\\///\\/\//\\\///\\/\//\\\///\\/\//\\\//
+ \/\\///\\\//\/\\///\\\//\/\\///\\\//\/
+    \/\\//\/    \/\\//\/    \/\\//\/
+       \/          \/          \/
+       
+       
+
+   echo 你这只狗 | boxes -d dog -a c
+          __   _,--="=--,_   __
+         /  \."    .-.    "./  \
+        /  ,/  _   : :   _  \/` \
+        \  `| /o\  :_:  /o\ |\__/
+         `-'| :="~` _ `~"=: |
+            \`     (_)     `/
+     .-"-.   \      |      /   .-"-.
+.---{     }--|  /,.-'-.,\  |--{     }---.
+ )  (_)_)_)  \_/`~-===-~`\_/  (_(_(_)  (
+(             你这只狗              )
+ )                                     (
+'---------------------------------------'
+
+
+echo Hello World! | boxes -d girl
+         .-"""-.
+        / .===. \
+       / / a a \ \
+      / ( \___/ ) \
+  _ooo\__\_____/__/____
+ /                     \
+| Hello World!          |
+ \_________________ooo_/
+      /           \
+     /:.:.:.:.:.:.:\
+         |  |  |
+         \==|==/
+         /-'Y'-\
+        (__/ \__)
+        
+        
+echo  Hello World! | boxes -d headline
+/*****************************/
+/*  H e l l o   W o r l d !  */
+/*****************************/
+
+
+
+echo  Hello World! | boxes -d html
+<!-- - - - - - - - -->
+<!-- Hello World!  -->
+<!-- - - - - - - - -->
+
+
+echo  Hello World! | boxes -d html-cmt
+<!-- Hello World! -->
+
+
+
+echo  Hello World! | boxes -d ian_jones
+       \\\///
+      / _  _ \
+    (| (.)(.) |)
+.-.OOOo--()--oOOO.-.
+|                  |
+| Hello World!     |
+|                  |
+'-.oooO------------'
+   (   )   Oooo.
+    \ (    (   )
+     \_)    ) /
+           (_/
+           
+           
+           
+echo Hello World! | boxes -d  java-cmt
+// Hello World!
+
+
+echo Hello World! | boxes -d  javadoc
+/**
+ *  Hello World!
+ */      
+
+
+
+
+echo Hello World! | boxes -d mouse
+   .--,       .--,
+  ( (  \.---./  ) )
+   '.__/o   o\__.'
+      {=  ^  =}
+       >  -  <
+ __.""`-------`"".__
+/                   \
+\ Hello World!      /
+/                   \
+\___________________/
+     ___)( )(___
+    (((__) (__)))
+    
+    
+    
+echo Hello World! | boxes -d netdata
+%{--------------+
+ | Hello World! |
+ +--------------%}
+
+
+echo Hello World! | boxes -d nuke
+        _ ._  _ , _ ._
+      (_ ' ( `  )_  .__)
+    ( (  (    )   `)  ) _)
+   (__ (_   (_ . _) _) ,__)
+       `~~`\ ' . /`~~`
+       ,::: ;   ; :::,
+      ':::::::::::::::'
+ _jgs______/_ __ \__________
+|                           |
+| Hello World!              |
+|___________________________|
+
+
+
+
+echo Hello World! | boxes -d parchment
+ __________________
+/\                 \  
+\_|                |  
+  |  Hello World!  |  
+  |                |  
+  |  ______________|_ 
+  \_/_______________/
+ 
+
+
+echo  Hello World! |boxes -d peek -a c -s 40x11
+/*       _\|/_
+         (o o)
+ +----oOO-{_}-OOo----------------------+
+ |                                     |
+ |                                     |
+ |                                     |
+ |            Hello World!             |
+ |                                     |
+ |                                     |
+ |                                     |
+ +------------------------------------*/
+ 
+ 
+echo  Hello World! | boxes -d pound-cmt
+‘#’Hello World!
+
+echo  Hello World! | boxes -d right
+Hello World!    /*@TJ@*/
+
+
+echo  Hello World! | boxes -d santa
+           .-"``"-.
+          /______; \
+         {_______}\|
+         (/ a a \)(_)
+         (.-.).-.)
+  _ooo__(    ^    )_____
+ /       '-.___.-'      \
+| Hello World!           |
+ \__________________ooo_/
+         |_  |  _|  jgs
+         \___|___/
+         {___|___}
+          |_ | _|
+          /-'Y'-\
+         (__/ \__)
+         
+         
+echo  -e "奉天承运,皇帝诏约\n猪狗go die" | boxes -d scroll
+ / ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\
+|  /~~\                               /  /~~\ 
+|\ \   |  奉天承运,皇帝诏约             | / /  | 
+| \   /|  猪狗go die                  | \   /|
+|  ~~  |                             |  ~~  |
+|      |                             |      |
+ \     |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|     /
+  \   /                               \   /
+   ~~~                                 ~~~
+   
+   
+   
+echo  Hello World! | boxes -d scroll-akn
+ /"\/\_..---------------._/\/"\
+(     _|| Hello World! ||_     )
+ \_/\/ ||              || \/\_/
+       ||              ||
+ /"\/\_|----------------|_/\/"\
+(     _|                |_     )
+ \_/\/ `----------------' \/\_/
+ 
+ 
+ 
+echo  Hello World! | boxes -d shell
+################
+# Hello World! #
+################
+
+
+   
+echo  Hello World! | boxes -d simple
+****************
+* Hello World! *
+****************
+
+
+echo  Hello World! | boxes -d spring
+      ,
+  /\^/`\   Hello World!
+ | \/   |
+ | |    |                   jgs
+ \ \    /                 _ _
+  '\\//'                _{ ' }_
+    ||                 { `.!.` }
+    ||                 ',_/Y\_,'
+    ||  ,                {_,_}
+|\  ||  |\                 |
+| | ||  | |              (\|  /)
+| | || / /                \| //
+ \ \||/ /                  |//
+  `\\//`   \   \./    \ \\ |/ /
+ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 
+echo  Hello World! | boxes -d stark1
+=-=-=-=-=-=-=-=-=
+^ Hello World!  ^
+=-=-=-=-=-=-=-=-=
+
+
+
+echo  Hello World! | boxes -d stark2
+.:-@.:-@.:-@.:-@.:-@-:.
+.:-@.:-@.:-@.:-@.:-@-:.
+.:-@Hello World!   @-:.
+.:-@.:-@.:-@.:-@.:-@-:.
+.:-@.:-@.:-@.:-@.:-@-:.
+
+
+
+echo  Hello World! | boxes -d stone
++--------------+
+| Hello World! |
++--------------+
+
+
+
+
+echo  Hello World! | boxes -d sunset
+                .
+           .    |    .
+            \   |   /
+        '.   \  '  /   .'
+          '. .'`*`'. .'
+<>...:::::::`.......`:::::::..<>
+<>:Hello World!              :<>
+<>:..........................:<>
+<><><><><><><><><><><><><><><><>
+
+
+
+echo  Hello World! | boxes -d tex-box
+%==============%
+% Hello World! %
+%==============%
+
+
+echo  Hello World! | boxes -d tex-cmt
+% Hello World!
+
+
+
+echo  Hello World! | boxes -d tjc
+/*
+ *  Hello World!
+ *
+* * * * * * * * *
+ */
+ 
+ 
+ 
+echo  Hello World! | boxes -d twisted
+._____. ._____. ._______. ._____. ._____.
+| ._. | | ._. | | .___. | | ._. | | ._. |
+| !_| |_|_|_! | | !___! | | !_| |_|_|_! |
+!___| |_______! !_______! !___| |_______!
+.___|_|_| |___________________|_|_| |___.
+| ._____| |_______________________| |_. |
+| !_! | | |                   | | ! !_! |
+!_____! | | Hello World!      | | !_____!
+._____. | |                   | | ._____.
+| ._. | | |                   | | | ._. |
+| | | | | |                   | | | | | |
+| !_! | | |                   | | ! !_! |
+!_____! | |                   | | !_____!
+._____. | |                   | | ._____.
+| ._. | | |                   | | | ._. |
+| !_| |_|_|___________________| |_|_|_! |
+!___| |_______________________| |_______!
+.___|_|_| |___. ._______. .___|_|_| |___.
+| ._____| |_. | | .___. | | ._____| |_. |
+| !_! | | !_! | | !___! | | !_! | | !_! |
+!_____! !_____! !_______! !_____! !_____!
+
+
+
+echo  Hello World! | boxes -d underline
+// Hello World!
+// ~~~~~~~~~~~~
+
+
+
+echo  Hello World! | boxes -d unicornsay
+   _________________________________
+  /                                 \
+  |  Hello World!                   |
+  \___________________________  __'\
+                              |/   \\
+                               \    \\  .
+                                    |\\/|
+                                    / " '\
+                                    . .   .
+                                   /    ) |
+                                  '  _.'  |
+                                  '-'/    \
+                                  
+echo  Hello World! | boxes -d unicornthink
+   _________________________________
+  /                                 \
+  |  Hello World!                   |
+  \______________________________ '\
+                             ()    \\
+                               O    \\  .
+                                 o  |\\/|
+                                    / " '\
+                                    . .   .
+                                   /    ) |
+                                  '  _.'  |
+                                  '-'/    \
+                           
+                                  
+echo  Hello World! | boxes -d whirly                            
+ .+"+.+"+.+"+.+"+.
+( Hello World!    )
+ )               (
+(                 )
+ "+.+"+.+"+.+"+.+"
+ 
+ 
+ 
+echo  Hello World! | boxes -d  xes                                
+        <\/><\/>
+    <\/></\></\><\/>
+    </\>        </\>
+ <\/>Hello World!  <\/>
+ </\>              </\>
+<\/>                <\/>
+</\>                </\>
+ <\/>              <\/>
+ </\>              </\>
+    <\/>        <\/>
+    </\><\/><\/></\>
+        </\></\>
+```
+
+
+
+## btfs (bittorrent filesystem) 比特流文件系统可实现边播边下载功能
 
 
 ##  bwm-ng 带宽监控器
