@@ -1900,6 +1900,494 @@ CHS2LBA
 ```
 
 ##   bettercap  中间人攻击软件框架 内网神器 黑客工具
+```
+bettercap:  Bettercap 是一款瑞士军刀，这款开源软件可用于网络攻击和监控
+使用教程地址： https://blog.csdn.net/u012570105/article/details/80561778
+github地址: github地址
+
+安装命令(Mac)： brew install bettercap
+
+
+```
+
+```
+使用命令： 
+sudo bettercap       // 该命令进入shell交互模式
+```
+
+<img src="./image/shell_command_tool/battercap2.png"/>
+<img src="./image/shell_command_tool/battercap.png"/>
+
+<img src="./image/shell_command_tool/battercap1.png"/>
+```
+192.168.72.0/21 > 192.168.73.241  » help
+
+                  help : 查看帮助文档
+                active : 查看当前所有活动可用的模块
+                  quit :  关闭当前交互模式退出离开 回到Linux的Shell
+         sleep SECONDS : 睡眠Second 秒
+         get NAME :  获得一个定义变量的值
+        set NAME VALUE :   设置一个变量值， 可用GET获得
+  read VARIABLE PROMPT : Show a PROMPT to ask the user for input that will be saved inside VARIABLE.
+                 clear : Clear the screen.
+        include CAPLET : Load and run this caplet in the current session.
+             ! COMMAND : 执行Linux shell下的命令
+        alias MAC NAME : Assign an alias to a given endpoint given its MAC address.
+
+     
+Modules   【battercap 包含的模块  not running表示没有运行】
+
+      any.proxy > not running
+       api.rest > not running
+      arp.spoof > not running
+      ble.recon > not running
+    dhcp6.spoof > not running
+      dns.spoof > not running
+  events.stream > running
+            gps > not running
+     http.proxy > not running
+    http.server > not running
+    https.proxy > not running
+    mac.changer > not running
+   mysql.server > not running
+      net.probe > not running
+      net.recon > running
+      net.sniff > not running
+   packet.proxy > not running
+       syn.scan > not running
+      tcp.proxy > not running
+         ticker > not running
+         update > not running
+           wifi > not running
+            wol > not running
+
+
+     help events.stream :  查看模块events.stream 帮助文档
+     
+
+
+【1】    help  any.proxy 
+192.168.72.0/21 > 192.168.73.241  » help  any.proxy
+
+any.proxy (not running): A firewall redirection to any custom proxy.
+
+   any.proxy on : Start the custom proxy redirection.
+  any.proxy off : Stop the custom proxy redirection.
+
+  Parameters
+
+  any.proxy.dst_address : Address where the proxy is listening. (default=<interface address>)
+     any.proxy.dst_port : Port where the proxy is listening. (default=8080)
+        any.proxy.iface : Interface to redirect packets from. (default=<interface name>)
+     any.proxy.protocol : Proxy protocol. (default=TCP)
+  any.proxy.src_address : Leave empty to intercept any source address. (default=)
+     any.proxy.src_port : Remote port to redirect when the module is activated. (default=80)
+
+
+
+【2】  help     api.rest 
+
+192.168.72.0/21 > 192.168.73.241  » help     api.rest
+
+api.rest (not running): Expose a RESTful API.
+
+   api.rest on : Start REST API server.
+  api.rest off : Stop REST API server.
+
+  Parameters
+
+                         api.rest.address : Address to bind the API REST server to. (default=<interface address>)
+                     api.rest.certificate : API TLS certificate. (default=~/.bcap-api.rest.certificate.pem)
+                api.rest.certificate.bits : Number of bits of the RSA private key of the generated HTTPS certificate. (default=4096)
+          api.rest.certificate.commonname : Common Name field of the generated HTTPS certificate. (default=bettercap)
+             api.rest.certificate.country : Country field of the generated HTTPS certificate. (default=US)
+            api.rest.certificate.locality : Locality field of the generated HTTPS certificate. (default=)
+        api.rest.certificate.organization : Organization field of the generated HTTPS certificate. (default=bettercap devteam)
+  api.rest.certificate.organizationalunit : Organizational Unit field of the generated HTTPS certificate. (default=https://bettercap.org/)
+                             api.rest.key : API TLS key (default=~/.bcap-api.rest.key.pem)
+                        api.rest.password : API authentication password. (default=)
+                            api.rest.port : Port to bind the API REST server to. (default=8083)
+                        api.rest.username : API authentication username. (default=)
+                       api.rest.websocket : If true the /api/events route will be available as a websocket endpoint instead of HTTPS. (default=false)
+                       
+                       
+                       
+                       
+                       
+【3】    help      arp.spoof 
+192.168.72.0/21 > 192.168.73.241  » help      arp.spoof
+
+arp.spoof (not running): Keep spoofing selected hosts on the network.
+
+   arp.spoof on : Start ARP spoofer.
+     arp.ban on : Start ARP spoofer in ban mode, meaning the target(s) connectivity will not work.
+  arp.spoof off : Stop ARP spoofer.
+    arp.ban off : Stop ARP spoofer.
+
+  Parameters
+
+   arp.spoof.internal : If true, local connections among computers of the network will be spoofed, otherwise only connections going to and coming from the external network. (default=false)
+    arp.spoof.targets : Comma separated list of IP addresses, MAC addresses or aliases to spoof, also supports nmap style IP ranges. (default=<entire subnet>)
+  arp.spoof.whitelist : Comma separated list of IP addresses, MAC addresses or aliases to skip while spoofing. (default=)
+
+
+
+【4】    help      ble.recon 
+192.168.72.0/21 > 192.168.73.241  » help      ble.recon
+
+ble.recon (not running): Bluetooth Low Energy devices discovery.
+
+   ble.recon on : Start Bluetooth Low Energy devices discovery.
+  ble.recon off : Stop Bluetooth Low Energy devices discovery.
+  
+  
+  
+  
+【5】    help    dhcp6.spoof 
+192.168.72.0/21 > 192.168.73.241  » help    dhcp6.spoof
+
+dhcp6.spoof (not running): Replies to DHCPv6 messages, providing victims with a link-local IPv6 address and setting the attackers host as default DNS server (https://github.com/fox-it/mitm6/).
+
+   dhcp6.spoof on : Start the DHCPv6 spoofer in the background.
+  dhcp6.spoof off : Stop the DHCPv6 spoofer in the background.
+
+  Parameters
+
+  dhcp6.spoof.domains : Comma separated values of domain names to spoof. (default=microsoft.com, google.com, facebook.com, apple.com, twitter.com)
+  
+  
+  
+  
+【6】    help      dns.spoof 
+192.168.72.0/21 > 192.168.73.241  » help      dns.spoof
+
+dns.spoof (not running): Replies to DNS messages with spoofed responses.
+
+   dns.spoof on : Start the DNS spoofer in the background.
+  dns.spoof off : Stop the DNS spoofer in the background.
+
+  Parameters
+
+  dns.spoof.address : IP address to map the domains to. (default=<interface address>)
+      dns.spoof.all : If true the module will reply to every DNS request, otherwise it will only reply to the one targeting the local pc. (default=false)
+  dns.spoof.domains : Comma separated values of domain names to spoof. (default=*)
+  
+  
+  
+  
+【7】   help  events.stream 
+192.168.72.0/21 > 192.168.73.241  » help  events.stream
+
+events.stream (running): Print events as a continuous stream.
+
+             events.stream on : Start events stream.
+            events.stream off : Stop events stream.
+           events.show LIMIT? : Show events stream.
+  events.waitfor TAG TIMEOUT? : Wait for an event with the given tag either forever or for a timeout in seconds.
+         events.ignore FILTER : Events with an identifier matching this filter will not be shown (use multiple times to add more filters).
+        events.include FILTER : Used to remove filters passed with the events.ignore command.
+               events.filters : Print the list of filters used to ignore events.
+                 events.clear : Clear events stream.
+
+  Parameters
+
+  events.stream.output : If not empty, events will be written to this file instead of the standard output. (default=)
+
+
+
+
+
+【8】   help    gps 
+192.168.72.0/21 > 192.168.73.241  » help    gps
+
+gps (not running): A module talking with GPS hardware on a serial interface.
+
+    gps on : Start acquiring from the GPS hardware.
+   gps off : Stop acquiring from the GPS hardware.
+  gps.show : Show the last coordinates returned by the GPS hardware.
+
+  Parameters
+
+  gps.baudrate : Baud rate of the GPS serial device. (default=19200)
+    gps.device : Serial device of the GPS hardware. (default=/dev/ttyUSB0)
+    
+    
+    
+    
+【9】    help     http.proxy 
+192.168.72.0/21 > 192.168.73.241  » help     http.proxy
+
+http.proxy (not running): A full featured HTTP proxy that can be used to inject malicious contents into webpages, all HTTP traffic will be redirected to it.
+
+   http.proxy on : Start HTTP proxy.
+  http.proxy off : Stop HTTP proxy.
+
+  Parameters
+
+            http.port : HTTP port to redirect when the proxy is activated. (default=80)
+   http.proxy.address : Address to bind the HTTP proxy to. (default=<interface address>)
+  http.proxy.injectjs : URL, path or javascript code to inject into every HTML page. (default=)
+      http.proxy.port : Port to bind the HTTP proxy to. (default=8080)
+    http.proxy.script : Path of a proxy JS script. (default=)
+  http.proxy.sslstrip : Enable or disable SSL stripping. (default=false)
+
+
+
+
+
+【10】   help    http.server 
+192.168.72.0/21 > 192.168.73.241  » help    http.server
+
+http.server (not running): A simple HTTP server, to be used to serve files and scripts across the network.
+
+   http.server on : Start httpd server.
+  http.server off : Stop httpd server.
+
+  Parameters
+
+                         http.server.address : Address to bind the http server to. (default=<interface address>)
+                     http.server.certificate : TLS certificate file, if not empty will configure this as a HTTPS server (will be auto generated if filled but not existing). (default=)
+                http.server.certificate.bits : Number of bits of the RSA private key of the generated HTTPS certificate. (default=4096)
+          http.server.certificate.commonname : Common Name field of the generated HTTPS certificate. (default=bettercap)
+             http.server.certificate.country : Country field of the generated HTTPS certificate. (default=US)
+            http.server.certificate.locality : Locality field of the generated HTTPS certificate. (default=)
+        http.server.certificate.organization : Organization field of the generated HTTPS certificate. (default=bettercap devteam)
+  http.server.certificate.organizationalunit : Organizational Unit field of the generated HTTPS certificate. (default=https://bettercap.org/)
+                             http.server.key : TLS key file, if not empty will configure this as a HTTPS server (will be auto generated if filled but not existing). (default=)
+                            http.server.path : Server folder. (default=.)
+                            http.server.port : Port to bind the http server to. (default=80)
+                            
+                            
+                            
+                            
+【11】    help    https.proxy 
+192.168.72.0/21 > 192.168.73.241  » help    https.proxy
+
+https.proxy (not running): A full featured HTTPS proxy that can be used to inject malicious contents into webpages, all HTTPS traffic will be redirected to it.
+
+   https.proxy on : Start HTTPS proxy.
+  https.proxy off : Stop HTTPS proxy.
+
+  Parameters
+
+                                  https.port : HTTPS port to redirect when the proxy is activated. (default=443)
+                         https.proxy.address : Address to bind the HTTPS proxy to. (default=<interface address>)
+                     https.proxy.certificate : HTTPS proxy certification authority TLS certificate file. (default=~/.bettercap-ca.cert.pem)
+                https.proxy.certificate.bits : Number of bits of the RSA private key of the generated HTTPS certificate. (default=4096)
+          https.proxy.certificate.commonname : Common Name field of the generated HTTPS certificate. (default=Go Daddy Secure Certificate Authority - G2)
+             https.proxy.certificate.country : Country field of the generated HTTPS certificate. (default=US)
+            https.proxy.certificate.locality : Locality field of the generated HTTPS certificate. (default=Scottsdale)
+        https.proxy.certificate.organization : Organization field of the generated HTTPS certificate. (default=GoDaddy.com, Inc.)
+  https.proxy.certificate.organizationalunit : Organizational Unit field of the generated HTTPS certificate. (default=https://certs.godaddy.com/repository/)
+                        https.proxy.injectjs : URL, path or javascript code to inject into every HTML page. (default=)
+                             https.proxy.key : HTTPS proxy certification authority TLS key file. (default=~/.bettercap-ca.key.pem)
+                            https.proxy.port : Port to bind the HTTPS proxy to. (default=8083)
+                          https.proxy.script : Path of a proxy JS script. (default=)
+                        https.proxy.sslstrip : Enable or disable SSL stripping. (default=false)
+                        
+                        
+                        
+                        
+【12】    help    mac.changer 
+192.168.72.0/21 > 192.168.73.241  » help    mac.changer
+
+mac.changer (not running): Change active interface mac address.
+
+   mac.changer on : Start mac changer module.
+  mac.changer off : Stop mac changer module and restore original mac address.
+
+  Parameters
+
+  mac.changer.address : Hardware address to apply to the interface. (default=<random mac>)
+    mac.changer.iface : Name of the interface to use. (default=<interface name>)
+    
+    
+    
+    
+【13】   help  mysql.server 
+192.168.72.0/21 > 192.168.73.241  » help  mysql.server
+
+mysql.server (not running): A simple Rogue MySQL server, to be used to exploit LOCAL INFILE and read arbitrary files from the client.
+
+   mysql.server on : Start mysql server.
+  mysql.server off : Stop mysql server.
+
+  Parameters
+
+  mysql.server.address : Address to bind the mysql server to. (default=<interface address>)
+   mysql.server.infile : File you want to read. UNC paths are also supported. (default=/etc/passwd)
+     mysql.server.port : Port to bind the mysql server to. (default=3306)
+     
+     
+     
+     
+【14】  help     net.probe 
+192.168.72.0/21 > 192.168.73.241  » help     net.probe
+
+net.probe (not running): Keep probing for new hosts on the network by sending dummy UDP packets to every possible IP on the subnet.
+
+   net.probe on : Start network hosts probing in background.
+  net.probe off : Stop network hosts probing in background.
+
+  Parameters
+
+  net.probe.throttle : If greater than 0, probe packets will be throttled by this value in milliseconds. (default=10)
+
+
+
+
+
+
+【15】    help     net.recon 
+192.168.72.0/21 > 192.168.73.241  » help     net.recon
+
+net.recon (running): Read periodically the ARP cache in order to monitor for new hosts on the network.
+
+      net.recon on : Start network hosts discovery.
+     net.recon off : Stop network hosts discovery.
+          net.show : Show cache hosts list (default sorting by ip).
+  net.show by seen : Show cache hosts list (sort by last seen).
+  net.show by sent : Show cache hosts list (sort by sent packets).
+  net.show by rcvd : Show cache hosts list (sort by received packets).
+  
+  
+  
+  
+【16】  help  net.sniff 
+192.168.72.0/21 > 192.168.73.241  » help  net.sniff
+
+net.sniff (not running): Sniff packets from the network.
+
+  net.sniff stats : Print sniffer session configuration and statistics.
+     net.sniff on : Start network sniffer in background.
+    net.sniff off : Stop network sniffer in background.
+
+  Parameters
+
+   net.sniff.filter : BPF filter for the sniffer. (default=not arp)
+    net.sniff.local : If true it will consider packets from/to this computer, otherwise it will skip them. (default=false)
+   net.sniff.output : If set, the sniffer will write captured packets to this file. (default=)
+   net.sniff.regexp : If set, only packets matching this regular expression will be considered. (default=)
+   net.sniff.source : If set, the sniffer will read from this pcap file instead of the current interface. (default=)
+  net.sniff.verbose : If true, every captured and parsed packet will be sent to the events.stream for displaying, otherwise only the ones parsed at the application layer (sni, http, etc). (default=true)
+  
+  
+  
+  
+  
+【17】  help  packet.proxy 
+192.168.72.0/21 > 192.168.73.241  » help  packet.proxy
+
+packet.proxy (not running): Not supported on this MacOS
+
+
+
+【18】   help      syn.scan 
+192.168.72.0/21 > 192.168.73.241  » help      syn.scan
+
+syn.scan (not running): A module to perform SYN port scanning.
+
+  syn.scan IP-RANGE [START-PORT] [END-PORT] : Perform a syn port scanning against an IP address within the provided ports range.
+
+
+
+
+
+
+【19】     help     tcp.proxy 
+192.168.72.0/21 > 192.168.73.241  » help     tcp.proxy
+
+tcp.proxy (not running): A full featured TCP proxy and tunnel, all TCP traffic to a given remote address and port will be redirected to it.
+
+   tcp.proxy on : Start TCP proxy.
+  tcp.proxy off : Stop TCP proxy.
+
+  Parameters
+
+         tcp.address : Remote address of the TCP proxy. (default=)
+            tcp.port : Remote port to redirect when the TCP proxy is activated. (default=443)
+   tcp.proxy.address : Address to bind the TCP proxy to. (default=<interface address>)
+      tcp.proxy.port : Port to bind the TCP proxy to. (default=8443)
+    tcp.proxy.script : Path of a TCP proxy JS script. (default=)
+  tcp.tunnel.address : Address to redirect the TCP tunnel to (optional). (default=)
+     tcp.tunnel.port : Port to redirect the TCP tunnel to (optional). (default=0)
+     
+     
+     
+     
+     
+【20】     help       ticker 
+192.168.72.0/21 > 192.168.73.241  » help       ticker
+
+ticker (not running): A module to execute one or more commands every given amount of seconds.
+
+   ticker on : Start the ticker.
+  ticker off : Stop the ticker.
+
+  Parameters
+
+  ticker.commands : List of commands separated by a ; (default=clear; net.show; events.show 20)
+    ticker.period : Ticker period in seconds (default=1)
+    
+    
+    
+    
+【21】    help       update 
+192.168.72.0/21 > 192.168.73.241  » help       update
+
+update (not running): A module to check for bettercap's updates.
+
+  update.check on : Check latest available stable version and compare it with the one being used.
+
+
+
+
+
+
+【22】    help        wifi 
+192.168.72.0/21 > 192.168.73.241  » help        wifi
+
+wifi (not running): A module to monitor and perform wireless attacks on 802.11.
+
+       wifi.recon on : Start 802.11 wireless base stations discovery and channel hopping.
+      wifi.recon off : Stop 802.11 wireless base stations discovery and channel hopping.
+      wifi.recon MAC : Set 802.11 base station address to filter for.
+    wifi.recon clear : Remove the 802.11 base station filter.
+   wifi.deauth BSSID : Start a 802.11 deauth attack, if an access point BSSID is provided, every client will be deauthenticated, otherwise only the selected client. Use a broadcast BSSID (ff:ff:ff:ff:ff:ff) to iterate every access point with at least one client and start a deauth attack for each one.
+             wifi.ap : Inject fake management beacons in order to create a rogue access point.
+           wifi.show : Show current wireless stations list (default sorting by essid).
+  wifi.recon.channel : WiFi channels (comma separated) or 'clear' for channel hopping.
+
+  Parameters
+
+       wifi.ap.bssid : BSSID of the fake access point. (default=<random mac>)
+     wifi.ap.channel : Channel of the fake access point. (default=1)
+  wifi.ap.encryption : If true, the fake access point will use WPA2, otherwise it'll result as an open AP. (default=true)
+        wifi.ap.ssid : SSID of the fake access point. (default=FreeWiFi)
+     wifi.hop.period : If channel hopping is enabled (empty wifi.recon.channel), this is the time in milliseconds the algorithm will hop on every channel (it'll be doubled if both 2.4 and 5.0 bands are available). (default=250)
+    wifi.skip-broken : If true, dot11 packets with an invalid checksum will be skipped. (default=true)
+    wifi.source.file : If set, the wifi module will read from this pcap file instead of the hardware interface. (default=)
+
+
+
+
+
+
+【23】      help          wol 
+192.168.72.0/21 > 192.168.73.241  » help          wol
+
+wol (not running): A module to send Wake On LAN packets in broadcast or to a specific MAC.
+
+  wol.eth MAC : Send a WOL as a raw ethernet packet of type 0x0847 (if no MAC is specified, ff:ff:ff:ff:ff:ff will be used).
+  wol.udp MAC : Send a WOL as an IPv4 broadcast packet to UDP port 9 (if no MAC is specified, ff:ff:ff:ff:ff:ff will be used).
+
+
+
+
+     
+```
+
+
 
 
 ##  bitcoin   P2P支付网络
