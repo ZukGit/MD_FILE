@@ -3315,27 +3315,126 @@ echo  Hello World! | boxes -d  xes
 
 
 ## btfs (bittorrent filesystem) 比特流文件系统可实现边播边下载功能
+```
+btfs (bittorrent filesystem):
+使用BTFS，您可以挂载任何.torrent文件或磁铁链接，然后将其用作文件树中的任何只读目录。
+当应用程序读取文件时，文件的内容将按需下载。像ls、cat和cp这样的工具可以像预期的那样工作。
+像VLC和mPlayer这样的应用程序也可以不受更改地工作。
+使用BTFS，你可以将torrent文件或磁力链接安装为目录，然后将其作为文件树中的任何只读目录。
+这些文件的内容将在应用程序读取时按需下载。由于BTFS在FUSE之上运行，因此不需要进入Linux内核。
 
+
+
+安装命令( mac ): 
+brew cask install osxfuse    ##  文件处理OSXFUSE一个软件包,一旦安装后,可以让你在Mac上使用这些第三方文件系统
+brew install btfs
+
+
+用法：
+BTFS的使用非常简单。你只需要找到一个torrent文件或磁力链接，并将其安装在一个目录中。然后将torrent文件或磁力链接的内容安装在你选择的目录内。
+当一个程序试图访问该文件进行读取时，实际的数据将会被按需下载。此外，像ls，cat和cp这样的工具也能按照预期的方式操作torrent。
+像 vlc 和 mplayer 这样的应用程序也可以不加改变地工作。
+玩家甚至可能不知道实际内容并非物理上的存在于本地磁盘中，而是根据需要从种子中进行收集。
+
+
+1.创建一个目录来安装torrent / magnet链接：
+mkdir mnt
+
+2.安装  torrent/magnet链接：挂载到之前创建的文件夹
+btfs video.torrent mnt         //   xxxxxxx.torrent
+   
+3. 进入目录
+cd mnt
+
+4.开始观看！
+vlc <path-to-video.mp4>   xxxx.mp4
+
+5. 要卸载BTFS文件系统，只需运行以下命令：
+fuser mount -u mnt
+
+
+git地址：   https://github.com/johang/btfs
+
+
+使用示例：
+mkdir mnt
+btfs video.torrent mnt
+cd mnt
+vlc video.mp4
+
+```
+
+
+```
+帮助手册：
+
+DESCRIPTION
+       btfs  allows  one  to mount any torrent file or a magnet link as a file
+       system. The contents of the files will be downloaded on-demand as  they
+       are read by applications.
+
+OPTIONS
+       -v   --version
+	      print version
+
+       -h   --help
+	      print help
+
+       -b   --browse-only
+	      download metadata only
+
+       -k   --keep
+	      keep files after unmount
+
+       --min-port=PORT
+	      start of listen port range
+
+       --max-port=PORT
+	      end of listen port range
+
+       --max-download-rate=RATE
+	      maximum download rate (in kilobytes per second)
+
+       --max-upload-rate=RATE
+	      maximum upload rate (in kilobytes per second)
+
+EXAMPLES
+       mounting a torrent file:
+	 btfs video.torrent ~/mnt
+
+       mounting a magnet link:
+	 btfs 'magnet:?xt=urn:btih:...' ~/mnt
+
+       unmounting:
+	 fusermount -u ~/mnt
+```
 
 ##  bwm-ng 带宽监控器
 ```
 bwm-ng（下一代带宽监控器）是另一款非常简单的实时网络负载监控工具，可以报告摘要信息，显示进出系统上所有可用网络接口的不同数据的传输速度。
 
+安装命令： brew install bwm-ng 
+
 ```
-
-
-
-
-
-
-
-
-## Byobu   linux下的终端分屏神器
-```
-
 
 
 ```
+bwm-ng 
+/        iface                       Rx                   Tx                Total  
+=================================================================================
+          eth0:               1.18 KB/s            2.65 KB/s            3.82 KB/s           
+            lo:               0.66 KB/s            0.66 KB/s            1.33 KB/s
+         wlan1:               2.05 KB/s            0.73 KB/s            2.79 KB/s
+--------------------------------------------------------------------------------- 
+         total:               3.89 KB/s            4.04 KB/s            7.94 KB/s 
+
+
+```
+
+<img src="./image/shell_command_tool/bwm.png">
+
+
+
 
 
 
@@ -4731,16 +4830,77 @@ zxing-cpp                   zyre                              zzuf              
 ```
 # C
 
-##  caffe   深度学习框架
+##  caffe   Caffe （卷积神经网络框架）
+```
+caffe，全称Convolutional Architecture for Fast Feature Embedding。是一种常用的深度学习框架，主要应用在视频、图像处理方面的应用上。
+
+
+
+caffe是一个清晰，可读性高，快速的深度学习框架。作者是贾扬清，加州大学伯克利的ph.D，现就职于Facebook。
+
+caffe的官网:   
+  http://caffe.berkeleyvision.org/
+Caffe 测试Demo：    能分析上传的照片得出一些图片描述的信息
+http://demo.caffe.berkeleyvision.org/
+
+入门介绍：      https://blog.csdn.net/cham_3/article/details/72141753
+https://blog.csdn.net/u013108511/article/details/79265659
+https://blog.csdn.net/haima1998/article/details/78950106
+
+
+
+安装命令：   brew install caffe
+有兴趣再来深入查看 具体内容
+```
+
+
+
 
 ## cowsay  显示动物画面
+```
+安装命令 ：    brew install cowsay
+
+
+使用方法：
+echo  Hello World! | cowsay
+ ______________
+< Hello World! >
+ --------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+
+
+
+```
 
 ## ctop  查看进程情况的工具
+```
+ctop是一个新的基于命令行的工具，它可用于在容器层级监控进程。
+ctop requires no arguments and uses Docker host variables by default.
+Ctop需要使用容器docker来完成检测性能的场景
+
+简介：   https://www.linuxidc.com/Linux/2015-05/117344.html
+
+
+git地址：   https://github.com/bcicen/ctop/
+
+
+安装命令：    brew install  ctop
+
+```
 <img src="https://github.com/bcicen/ctop/raw/master/_docs/img/grid.gif"/>
 # D
 
 ## dark-mode Mac黑暗主题命令
 ```
+简介：   dark-mode 是一款可以在命令行切换Macbook暗黑主题的命令工具。
+
+
+安装命令：
 brew install dark-mode
 
 
@@ -4757,11 +4917,41 @@ dark-mode --help
     status  Dark mode status
 
 
-dark-mode  黑暗主题切换
+dark-mode      //黑暗主题切换
 ```
 
 
 ## dex2jar
+[dex2jar](Android_RevertFile/dex2jar)
+[jd-gui](Android_RevertFile/jd-gui)
+命令:  dex2jar classes.dex
+
+dex2jar
+   作用：将apk反编译成Java源码（classes.dex转化成jar文件）
+
+jd-gui
+   作用：查看APK中classes.dex转化成出的jar文件，即源码文件
+
+<img src="https://raw.githubusercontent.com/ZukGit/Android_Revert/master/Android_RevertImage/dex2jar.png" width = "75%" height="75%"/>
+
+```
+第一步：找到dex2jar和jd-gui两个文件
+
+第二步：然后在把你需要反编译的apk包，后缀名改成zip，再解压，得到相应的解压文件
+
+第三步：找到你解压后的文件里面的classes.dex文件，同时打开dex2jar-2.0文件夹，将classes.dex文件拷贝到dex2jar-2.0文件中
+
+第四步：在dex2jar-2.0文件中shift+鼠标右键选择“在此处打开命令窗口（W）”，这样就进入到了dex2jar-2.0文件目录下，当然也可以自己通过cmd去指定dex2jar-2.0文件的路径，效果都是一样的
+
+第五步：在此时的命令窗口中输入:d2j-dex2jar classes.dex 然后回车（注意：d2j-dex2jar和classes.dex之间在输入的时候有空格），执行完成后，会多出一个classes-dex2jar.jar文件，这个文件就是我们需要的
+
+第六步：找到你下载的zip包解压后文件中的jd-gui文件夹，然后打开里面有jd-gui.exe文件,可以双击直接打开，然后，右上角 File —>Open File，将上面得到的classes-dex2jar.jar文件打开，就会得到我们最终想要的到的东西。
+里面有别人引用的jar包，也有别人自定义项目工程的包，反正各种【代码资源】都在这了，【图片声音资源这里得不到的】，不过在第一次，你将apk后缀名改成zip解压后得到的解压文件里面就可以拿到别人的资源了
+```
+
+
+
+
 
 
 ## dhcpdump
@@ -4770,8 +4960,160 @@ Monitor DHCP Traffic For Debugging Purpose
 
 https://www.cyberciti.biz/faq/linux-unix-dhcpdump-monitor-dhcp-traffic/
 
+Monitor DHCP traffic for debugging purposes
+https://www.mavetju.org/
+
+DHCP（Dynamic Host Configuration Protocol，动态主机配置协议）是一个局域网的网络协议，
+使用UDP协议工作， 主要有两个用途：给内部网络或网络服务供应商自动分配IP地址，
+给用户或者内部网络管理员作为对所有计算机作中央管理的手段，在RFC 2131中有详细的描述
+
+
+
+DHCP 报文结构类型： https://blog.csdn.net/jl2011/article/details/49334297
+
+
+安装命令：     brew install dhcpdump
+
+使用命令；
+dhcpdump -i en0
+相同效果的 tcpdump命令
+tcpdump -lenx -i eth0 -s 1500  8850   // 最后的8850是端口
+
+
 ```
 
+
+
+```
+帮助手册：
+DESCRIPTION
+       This command parses the output of tcpdump to display the dhcp-packets for easier checking and debugging.
+
+USAGE
+       dhcpdump -i /dev/fxp0
+
+       If you want to filter a specific Client Hardware Address (CHADDR), then you can specifiy it as a regular
+       expressions:
+
+       dhcpdump -i /dev/fxp0 -h ^00:c0:4f
+
+       This will display only the packets with Client Hardware Addresses which start with 00:c0:4f.
+
+
+
+
+OUTPUT
+         TIME: 15:45:02.084272
+           IP: 0.0.0.0.68 (0:c0:4f:82:ac:7f) > 255.255.255.255.67 (ff:ff:ff:ff:ff:ff)
+           OP: 1 (BOOTPREQUEST)
+        HTYPE: 1 (Ethernet)
+         HLEN: 6
+         HOPS: 0
+          XID: 28f61b03
+         SECS: 0
+        FLAGS: 0
+       CIADDR: 0.0.0.0
+       YIADDR: 0.0.0.0
+       SIADDR: 0.0.0.0
+       GIADDR: 0.0.0.0
+       CHADDR: 00:c0:4f:82:ac:7f:00:00:00:00:00:00:00:00:00:00
+        SNAME: .
+        FNAME: .
+       OPTION:  53 (  1) DHCP message type         3 (DHCPREQUEST)
+       OPTION:  54 (  4) Server identifier         130.139.64.101
+       OPTION:  50 (  4) Request IP address        130.139.64.143
+       OPTION:  55 (  7) Parameter Request List      1 (Subnet mask)
+                                                     3 (Routers)
+                                                    58 (T1)
+                                                    59 (T2)
+
+       At the option field, the first field is the value of the option, the second one (between brackets) is the
+       length of the option-datafield, the third field is the name of the option, the fourth field is the data of the
+       option.
+
+
+
+```
+
+
+```
+输出   打开WIFI 从当前网络的dhcp服务器获取IP地址： 
+[/Users/aaa]➜  ~ dhcpdump -i en0
+  TIME: 2018-08-27 17:01:07.551
+    IP: 0.0.0.0 (14:10:9f:e5:db:e9) > 255.255.255.255 (ff:ff:ff:ff:ff:ff)
+    OP: 1 (BOOTPREQUEST)
+ HTYPE: 1 (Ethernet)
+  HLEN: 6
+  HOPS: 0
+   XID: b25552fc
+  SECS: 0
+ FLAGS: 0
+CIADDR: 0.0.0.0
+YIADDR: 0.0.0.0
+SIADDR: 0.0.0.0
+GIADDR: 0.0.0.0
+CHADDR: 14:10:9f:e5:db:e9:00:00:00:00:00:00:00:00:00:00
+ SNAME: .
+ FNAME: .
+OPTION:  53 (  1) DHCP message type         3 (DHCPREQUEST)
+OPTION:  55 ( 10) Parameter Request List      1 (Subnet mask)
+					    121 (Classless Static Route)
+					      3 (Routers)
+					      6 (DNS server)
+					     15 (Domainname)
+					     					    119 (Domain Search)
+					    252 (MSFT - WinSock Proxy Auto Detect)
+					     95 (LDAP)
+					     44 (NetBIOS name server)
+					     46 (NetBIOS node type)
+
+OPTION:  57 (  2) Maximum DHCP message size 1500
+OPTION:  61 (  7) Client-identifier         01:14:10:9f:e5:db:e9
+OPTION:  50 (  4) Request IP address        192.168.73.241
+OPTION:  51 (  4) IP address leasetime      7776000 (12w6d)
+OPTION:  12 ( 15) Host name                 zhuzhenjiedeMBP
+---------------------------------------------------------------------------
+
+  TIME: 2018-08-27 17:01:07.551
+    IP: 1.1.1.1 (cc:16:7e:98:ee:f1) > 192.168.73.241 (14:10:9f:e5:db:e9)
+    OP: 2 (BOOTPREPLY)
+ HTYPE: 1 (Ethernet)
+   HLEN: 6
+  HOPS: 0
+   XID: b25552fc
+  SECS: 0
+ FLAGS: 0
+CIADDR: 0.0.0.0
+YIADDR: 192.168.73.241    【从 dhcp服务器获得的ip地址 】
+SIADDR: 0.0.0.0
+GIADDR: 0.0.0.0
+CHADDR: 14:10:9f:e5:db:e9:00:00:00:00:00:00:00:00:00:00
+ SNAME: .
+ FNAME: .
+OPTION:  53 (  1) DHCP message type         5 (DHCPACK)
+OPTION:  58 (  4) T1                        172800 (2d)
+OPTION:  59 (  4) T2                        302400 (3d12h)
+OPTION:  51 (  4) IP address leasetime      345600 (4d)
+OPTION:  54 (  4) Server identifier         1.1.1.1
+OPTION:   1 (  4) Subnet mask               255.255.248.0
+OPTION:   3 (  4) Routers                   192.168.79.254
+OPTION:   6 (  8) DNS server                192.168.60.6,192.168.3.2
+OPTION:   0 (  0) pad
+OPTION:   0 (  0) pad
+OPTION:   0 (  0) pad
+OPTION:   0 (  0) pad
+OPTION:   0 (  0) pad
+OPTION:   0 (  0) pad
+OPTION:   0 (  0) pad
+OPTION:   0 (  0) pad
+OPTION:   0 (  0) pad
+OPTION:   0 (255) pad
+---------------------------------------------------------------------------
+
+
+
+
+```
 ## docker
 ```
 Pack, ship and run any application as a lightweight container
@@ -4779,7 +5121,149 @@ Pack, ship and run any application as a lightweight container
 
 
 
+docker教程：    http://www.runoob.com/docker/docker-tutorial.html
+
+安装命令：    brew   install   docker
+
+
+
 ```
+
+
+
+```
+帮助手册： 
+[/Users/aaa]➜  ~ docker -h
+Flag shorthand -h has been deprecated, please use --help
+
+Usage:	docker [OPTIONS] COMMAND
+
+A self-sufficient runtime for containers 【一个容器自动运行所需】
+
+Options:
+      --config string      Location of client config files (default "/Users/aaa/.docker") 【客户端配置文件位置（默认 "/home/docker/.docker"）】
+  -D, --debug              Enable debug mode 【 启用调试 】
+  -H, --host list          Daemon socket(s) to connect to   （socket链接进程守护）
+  -l, --log-level string   Set the logging level ("debug"|"info"|"warn"|"error"|"fatal") (default "info")
+                            【设置日志级别（“debug”|“info”|“warn”|“error”|“fatal”）（默认为“info”）】
+      --tls                Use TLS; implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA (default "/Users/aaa/.docker/ca.pem")【ca证书远程用】
+      --tlscert string     Path to TLS certificate file (default "/Users/aaa/.docker/cert.pem")【私钥远程用】
+      --tlskey string      Path to TLS key file (default "/Users/aaa/.docker/key.pem")【公钥远程用】
+      --tlsverify          Use TLS and verify the remote【远程链接验证】
+  -v, --version            Print version information and quit【打印版本信息并退出】
+
+Management Commands:
+  config      Manage Docker configs  【 管理docker 配置 】
+  container   Manage containers   【 管理容器】
+  image       Manage images  【管理镜像】
+  network     Manage networks  【联网管理】
+  node        Manage Swarm nodes  【管理集群节点】
+  plugin      Manage plugins   【插件管理】
+  secret      Manage Docker secrets   【docker秘钥管理】
+  service     Manage services  【服务管理】
+  stack       Manage Docker stacks   【docker堆栈管理】
+  swarm       Manage Swarm
+  system      Manage Docker   【管理docker系统】
+  trust       Manage trust on Docker images  【 docker 权限管理】
+  volume      Manage volumes     【空间管理】
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+             【将本地标准输入，输出和错误流附加到正在运行的容器】
+  build       Build an image from a Dockerfile
+              【构建docker文件镜像】
+  commit      Create a new image from a container's changes
+              【创建一个镜像修改容器】
+  cp          Copy files/folders between a container and the local filesystem
+              【在容器和本地复制文件和文件夹】
+  create      Create a new container
+               【创建一个容器】
+  deploy      Deploy a new stack or update an existing stack
+               【部署堆栈容器】
+  diff        Inspect changes to files or directories on a container's filesystem
+               【检查容器系统上文件是否发生改变】
+  events      Get real time events from the server
+              【获取服务器实时推送】
+  exec        Run a command in a running container
+              【在容器中运行命令】
+  export      Export a container's filesystem as a tar archive
+              【将容器的文件系统导出为tar存档】
+  history     Show the history of an image
+              【显示镜像的历史变革】
+  images      List images
+               【列出所有镜像文件】
+  import      Import the contents from a tarball to create a filesystem image
+              【从 tarball导入文件内容到创建一个系统镜像文件】
+  info        Display system-wide information
+              【查看信息】
+  inspect     Return low-level information on Docker objects
+              【返回底层信息的docker对象】
+  kill        Kill one or more running containers
+               【终止一个或多个正在运行的容器】
+  load        Load an image from a tar archive or STDIN
+              【加载图像到一个tar归档文件或STDIN】
+  login       Log in to a Docker registry
+             【登陆某个docker之中】
+  logout      Log out from a Docker registry
+              【退出某个docker】
+  logs        Fetch the logs of a container
+              【获取容器运行的日志】
+  pause       Pause all processes within one or more containers
+              【暂停一个或多个容器进程】
+  port        List port mappings or a specific mapping for the container
+              【查看所有映射信息】
+  ps          List containers
+              【查看所有正在运行的容器】
+  pull        Pull an image or a repository from a registry
+               【拉取一个镜像或者仓库到本地】
+  push        Push an image or a repository to a registry
+              【上传镜像Image到服务器分支】
+  rename      Rename a container
+              【重命名一个docker容器】
+  restart     Restart one or more containers
+               【重新启动一个docker容器】
+  rm          Remove one or more containers
+               【移除容器Container】
+  rmi         Remove one or more images
+              【移除镜像Image】
+  run         Run a command in a new container
+              【在容器中运行命令】
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+              【保存镜像到本地tar压缩文件】
+  search      Search the Docker Hub for images
+              【在hub中搜索对应关键字的镜像】
+  start       Start one or more stopped containers
+               【开始关闭容器】
+  stats       Display a live stream of container(s) resource usage statistics
+              【展示活跃容器使用资源统计】
+  stop        Stop one or more running containers
+               【停止正在运行的镜像】
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+               【标记本地镜像，将其归入某一仓库】
+  top         Display the running processes of a container
+               【查看容器中运行的进程信息，支持 ps 命令参数】
+  unpause     Unpause all processes within one or more containers
+               【恢复容器中所有的进程】
+  update      Update configuration of one or more containers
+              【更新容器的配置】
+  version     Show the Docker version information
+              【显示docker的版本信息】
+  wait        Block until one or more containers stop, then print their exit codes
+              【阻塞运行直到容器停止，然后打印出它的退出代码】
+#############容器操作命令############
+
+Run 'docker COMMAND --help' for more information on a command.
+[/Users/aaa]➜  ~
+
+
+
+
+
+```
+
+
+
 
 ## docker-completion
 ```
@@ -4918,6 +5402,15 @@ http://kyberdigi.cz/projects/ipinfo/
 ## lolcat
 
 # M
+
+##  mplayer
+```
+mac的播放器  类似于  Linux下的  slv  并有对应的 shell 命令  mplayershell
+
+
+
+
+```
 
 ## m-cli
 ```

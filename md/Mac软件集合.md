@@ -460,6 +460,14 @@ VirtualBox VMs   // 在shell中打开VM
 
 
 ```
+
+## VLC
+```
+VLC 视频播放器 // 可在命令行执行
+
+下载地址： http://www.pc6.com/mac/112121.html
+```
+
 # W
 # X
 
