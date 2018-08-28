@@ -1,4 +1,155 @@
+
+# 快捷按键
+
+
+## Command + ?
+```
+Command + M  // 在非全屏窗口中 隐藏缩小该非全屏窗口，全屏窗口无作用
+
+Command + W  // 关闭当前的一个窗口 如果应用有多个窗口 那么值关闭一个窗口  全屏半屏窗口通用
+
+Command + Q  //  直接退出应用不管该应用有多少窗口 
+
+Command + T  // 打开一个当前焦点窗口的新窗口
+
+Command + ,(逗号)  // 打开一个当前焦点窗口的设置偏好窗口
+
+
+Command +  ↑    // 在当前窗口中回到上一个记录
+Command + 【    // 在当前窗口中历史记录往前记录
+Command +  】    // 在当前窗口中历史记录往后记录
+
+
+```
+
+## 代码隐藏选项
+```
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool TRUE;killall Finder   //打开Finder显示路径
+
+defaults delete com.apple.finder _FXShowPosixPathInTitle;killall Finder  //恢复默认Finder显示
+
+
+sudo spctl --master-disable    // 打开Mac安全设置下  允许安装所有应用的隐藏选项
+
+
+
+终端输入
+defaults write com.apple.dock ResetLaunchPad -bool true
+再输入
+killall Dock    //删除在Launch中已经显示问号的删除不掉的顽固图标
+
+
+
+// 保存系统截屏 Shift + Command + 4 保存的截图图片位置
+defaults write com.apple.screencapture location ~/Desktop/ 
+killall SystemUIServer
+
+
+
+
+
+```
+
+
+
+
+## Finder下快捷键
+```
+Command + Shift + .（句号） //显示隐藏文件
+
+
+
+Shift + Command + G     //  在Find中 打开前往文件夹弹框
+
+
+Shift + Command + A     //  在Finder中快速打开我的程序路径
+Shift + Command + C     //  在Finder中快速打开我的电脑 盘符路径
+Shift + Command + D     //  在Finder中快速打开我的桌面路径
+Shift + Command + N  	// 新建文件夹
+Option  +  Command  + N	       // 新建智能文件夹
+选中  +  Space空格    // 显示简介
+
+
+Command +  delete              // 删除选中项
+
+
+Command +  ↑    // Finder中回到上一个父文件夹路径
+Command + 【    // Finder中历史记录往前   子目录
+Command +  】    // Finder中历史记录往后  父目录
+
+
+Command + c   // 复制
+Command + option + v  // 黏贴
+
+```
+
+## 特定软件功能
+```
+// 电脑录屏  Mac自带系统软件 QuickTimer Player 打开Dock中右击
+// 选中 【新建屏幕录制】 即可录制屏幕视频
+
+
+// 检测屏幕文件特定点颜色
+//  使用Mac自带软件 【数码测色器】Digital Color Meter.app 即可
+
+
+
+// Alfred  打开快捷方式   Alt/Opt + Space  打开模糊搜索栏
+
+
+//  Control + Space空格    // 切换输入法 
+
+
+//  浏览器刷新：    Command +  R  // 刷新页面 refresh
+
+
+
+//在打开的系统偏好设置界面中，选择 【触控板】
+单手指  选中轻点来点按  【单手指轻点触控盘实现鼠标左键点击】  左键
+双手指  选中辅助来点按  【双手指轻点触控盘实现鼠标左右键点击】 右键
+双手指   在有侧滑栏的页面 可以使用两手机上下滑动 控制滑块移动  上下移动   在页面双手指 可实现前后退
+双手指  从右边缘滑入触控盘  可打开  通知中心
+三手指向上滑动   实现 Mission Control 任务表选择界面   Mission Control
+三个手指向左滑动  可以进入 DashBoard 小工具页面   三手指右滑动可退出  也可在全屏幕显示的应用间切换
+五个手指从四周收到一点 可进去 LaunchPad界面 
+五个手指从一点往四处散开  可以最小化退出到当前桌面 MInized
+
+
+
+
+
+
+//  系统设置 》 键盘 》 将 F1  F2 等键用作标准功能
+//使用 F1上的图片功能就需要 按住 fn+F1来完成，F1将改为标准的F1功能 【F1--F12按键标准功能与图片功能切换设置开关】
+esc       // 把窗口从全屏改为非全屏
+fn+F1      //  屏幕亮度下降
+fn+F2      //  屏幕亮度上升
+fn+F3       //  打开窗口选择界面  顶部是全屏窗口 中间是非全屏窗口
+fn+F4     //     打开/关闭 lanchPad窗口
+fn+F5    // 键盘灯 亮度降低
+fn+F6    // 键盘灯  亮度增强
+fn+F10   // 静音按钮
+fn+F11   // 声音音量减低按键
+fn+F12   // 声音音量增大按键
+
+
+F11： 在标准非全屏窗口中，把当前所有的非全屏窗口隐藏显示电脑桌面，切换的开关，在全屏的窗口该按钮视应用自己设置的F11的功能。
+
+
+
+关机命令
+1、Ctrl + 关机：弹出关机提示
+2、Ctrl + Option + 关机 ： 正常关机快捷键
+3、Command + Option + 关机 ：进入休眠状态
+4、Ctrl + Command + 关机：重启机器
+5、Shift + Ctrl + Option + 关机：瞬间关机
+```
+
+<img src="http://pic.pc6.com/up/2015-6/201506291652564109647.png"/>
+
 # A
+
+
 
 
 ## Alfred
